@@ -120,8 +120,6 @@ function configurarPesquisas() {
                 campo.value
             );
 
-            let encontrados = 0;
-
             itens.forEach(function (item) {
                 const texto = normalizarPesquisa(
                     item.dataset.searchText
@@ -136,19 +134,7 @@ function configurarPesquisas() {
                     "d-none",
                     !exibir
                 );
-
-                if (exibir) {
-                    encontrados += 1;
-                }
             });
-
-            const contador = document.querySelector(
-                `[data-filter-counter="${grupo}"]`
-            );
-
-            if (contador) {
-                contador.textContent = encontrados;
-            }
 
             if (
                 grupo === "jogos"
@@ -163,6 +149,7 @@ function configurarPesquisas() {
                     && fechados.querySelector(
                         '[data-filter-item="jogos"]:not(.d-none)'
                     )
+                    && window.bootstrap
                 ) {
                     bootstrap.Collapse.getOrCreateInstance(
                         fechados,

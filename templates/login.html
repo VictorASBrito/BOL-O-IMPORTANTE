@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Administração - {{ nome_site }}
+{% endblock %}
+
+{% block content %}
+    <div class="login-page">
+        <div class="login-card">
+            <div class="login-icon">
+                🔐
+            </div>
+
+            <span class="page-eyebrow">
+                Área restrita
+            </span>
+
+            <h1>Administração</h1>
+
+            <p>
+                Entre para cadastrar jogos, informar
+                resultados e gerenciar o bolão.
+            </p>
+
+            <form
+                method="POST"
+                action="{{ url_for('auth.login') }}"
+            >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="next"
+                    value="{{ proximo or '' }}"
+                >
+
+                <div class="mb-3">
+                    <label
+                        for="usuario"
+                        class="form-label"
+                    >
+                        Usuário
+                    </label>
+
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        class="form-control"
+                        autocomplete="username"
+                        autofocus
+                        required
+                    >
+                </div>
+
+                <div class="mb-4">
+                    <label
+                        for="senha"
+                        class="form-label"
+                    >
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        class="form-control"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-copa w-100"
+                >
+                    Entrar
+                </button>
+            </form>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="login-back-link"
+            >
+                Voltar para o site
+            </a>
+        </div>
+    </div>
+{% endblock %}

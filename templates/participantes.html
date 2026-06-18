@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Participantes - Bolão da Copa
+    Participantes - {{ nome_site }}
 {% endblock %}
 
 {% block content %}
@@ -14,8 +14,8 @@
             <h1>Participantes</h1>
 
             <p>
-                Cadastre, pesquise e acompanhe os detalhes
-                de cada participante.
+                Consulte os participantes e acesse
+                os detalhes de cada perfil.
             </p>
         </div>
 
@@ -24,74 +24,81 @@
         </div>
     </div>
 
-    <div class="card copa-card mb-4">
-        <div class="card-body">
-            <div class="section-title">
-                <div>
-                    <span class="section-number">01</span>
+    {% if admin_logado %}
+        <div class="card copa-card mb-4">
+            <div class="card-body">
+                <div class="section-title">
+                    <div>
+                        <span class="section-number">01</span>
+                    </div>
+
+                    <div>
+                        <h2>Adicionar participante</h2>
+
+                        <p>
+                            Separe os apelidos utilizando vírgulas.
+                        </p>
+                    </div>
                 </div>
 
-                <div>
-                    <h2>Adicionar participante</h2>
+                <form
+                    method="POST"
+                    action="{{ url_for('adicionar_participante') }}"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
 
-                    <p>
-                        Separe os apelidos utilizando
-                        vírgulas.
-                    </p>
-                </div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Nome principal
+                            </label>
+
+                            <input
+                                type="text"
+                                name="nome"
+                                class="form-control"
+                                required
+                            >
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Apelidos
+                            </label>
+
+                            <input
+                                type="text"
+                                name="apelidos"
+                                class="form-control"
+                                placeholder="Biel, Gabs, Gabrielzinho"
+                            >
+                        </div>
+
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button
+                                type="submit"
+                                class="btn btn-copa w-100"
+                            >
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <form
-                method="POST"
-                action="{{ url_for(
-                    'adicionar_participante'
-                ) }}"
-            >
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label">
-                            Nome principal
-                        </label>
-
-                        <input
-                            type="text"
-                            name="nome"
-                            class="form-control"
-                            required
-                        >
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">
-                            Apelidos
-                        </label>
-
-                        <input
-                            type="text"
-                            name="apelidos"
-                            class="form-control"
-                            placeholder="Biel, Gabs, Gabrielzinho"
-                        >
-                    </div>
-
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button
-                            type="submit"
-                            class="btn btn-copa w-100"
-                        >
-                            Adicionar
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
-    </div>
+    {% endif %}
 
     <div class="card copa-card">
         <div class="card-body">
             <div class="section-title">
                 <div>
-                    <span class="section-number">02</span>
+                    <span class="section-number">
+                        {% if admin_logado %}02{% else %}01{% endif %}
+                    </span>
                 </div>
 
                 <div>
@@ -123,8 +130,11 @@
                         <th>Participante</th>
                         <th>Apelidos</th>
                         <th>Situação</th>
-                        <th>Editar apelidos</th>
-                        <th>Ações</th>
+
+                        {% if admin_logado %}
+                            <th>Editar apelidos</th>
+                            <th>Ações</th>
+                        {% endif %}
                     </tr>
                 </thead>
 
@@ -167,7 +177,7 @@
                             </td>
 
                             <td>
-                                {% if participante.ativo %}
+                                {% if participante.get('ativo', true) %}
                                     <span class="status-badge status-aberto">
                                         Ativo
                                     </span>
@@ -178,69 +188,82 @@
                                 {% endif %}
                             </td>
 
-                            <td>
-                                <form
-                                    method="POST"
-                                    action="{{ url_for(
-                                        'atualizar_apelidos',
-                                        participante_id=participante.id
-                                    ) }}"
-                                    class="aliases-edit-form"
-                                >
-                                    <input
-                                        type="text"
-                                        name="apelidos"
-                                        class="form-control"
-                                        value="{{ participante.apelidos_exibicao | join(', ') }}"
-                                    >
-
-                                    <button
-                                        type="submit"
-                                        class="btn btn-sm btn-result"
-                                    >
-                                        Salvar
-                                    </button>
-                                </form>
-                            </td>
-
-                            <td>
-                                <div class="management-actions">
-                                    <a
-                                        href="{{ url_for(
-                                            'perfil_participante',
-                                            participante_id=participante.id
-                                        ) }}"
-                                        class="btn btn-sm btn-outline-copa"
-                                    >
-                                        Perfil
-                                    </a>
-
+                            {% if admin_logado %}
+                                <td>
                                     <form
                                         method="POST"
                                         action="{{ url_for(
-                                            'excluir_participante',
+                                            'atualizar_apelidos',
                                             participante_id=participante.id
                                         ) }}"
-                                        data-confirm-message="Excluir {{ participante.nome }} e todos os palpites vinculados?"
+                                        class="aliases-edit-form"
                                     >
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            value="{{ csrf_token() }}"
+                                        >
+
+                                        <input
+                                            type="text"
+                                            name="apelidos"
+                                            class="form-control"
+                                            value="{{ participante.apelidos_exibicao | join(', ') }}"
+                                        >
+
                                         <button
                                             type="submit"
-                                            class="btn btn-sm btn-danger-soft"
+                                            class="btn btn-sm btn-result"
                                         >
-                                            Excluir
+                                            Salvar
                                         </button>
                                     </form>
-                                </div>
-                            </td>
+                                </td>
+
+                                <td>
+                                    <div class="management-actions">
+                                        <a
+                                            href="{{ url_for(
+                                                'perfil_participante',
+                                                participante_id=participante.id
+                                            ) }}"
+                                            class="btn btn-sm btn-outline-copa"
+                                        >
+                                            Perfil
+                                        </a>
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for(
+                                                'excluir_participante',
+                                                participante_id=participante.id
+                                            ) }}"
+                                            data-confirm-message="Excluir {{ participante.nome }} e todos os palpites vinculados?"
+                                        >
+                                            <input
+                                                type="hidden"
+                                                name="csrf_token"
+                                                value="{{ csrf_token() }}"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="btn btn-sm btn-danger-soft"
+                                            >
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% else %}
                         <tr>
                             <td
-                                colspan="5"
+                                colspan="{% if admin_logado %}5{% else %}3{% endif %}"
                                 class="empty-state"
                             >
-                                Nenhum participante
-                                cadastrado.
+                                Nenhum participante cadastrado.
                             </td>
                         </tr>
                     {% endfor %}

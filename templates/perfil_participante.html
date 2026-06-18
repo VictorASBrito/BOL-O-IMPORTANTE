@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    {{ participante.nome }} - Bolão da Copa
+    {{ participante.nome }} - {{ nome_site }}
 {% endblock %}
 
 {% block content %}
@@ -15,9 +15,7 @@
                 Perfil do participante
             </span>
 
-            <h1>
-                {{ participante.nome }}
-            </h1>
+            <h1>{{ participante.nome }}</h1>
 
             <div class="aliases-list">
                 {% for apelido in participante.apelidos_exibicao %}
@@ -40,21 +38,29 @@
                 Voltar
             </a>
 
-            <form
-                method="POST"
-                action="{{ url_for(
-                    'excluir_participante',
-                    participante_id=participante.id
-                ) }}"
-                data-confirm-message="Excluir {{ participante.nome }} e todos os seus palpites?"
-            >
-                <button
-                    type="submit"
-                    class="btn btn-danger-soft"
+            {% if admin_logado %}
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'excluir_participante',
+                        participante_id=participante.id
+                    ) }}"
+                    data-confirm-message="Excluir {{ participante.nome }} e todos os seus palpites?"
                 >
-                    Excluir participante
-                </button>
-            </form>
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger-soft"
+                    >
+                        Excluir participante
+                    </button>
+                </form>
+            {% endif %}
         </div>
     </div>
 
@@ -93,9 +99,7 @@
 
         <div class="profile-stat-card">
             <span>Aproveitamento</span>
-            <strong>
-                {{ estatisticas.aproveitamento }}%
-            </strong>
+            <strong>{{ estatisticas.aproveitamento }}%</strong>
         </div>
     </div>
 
@@ -103,9 +107,7 @@
         <div class="card-body">
             <div class="section-title">
                 <div>
-                    <span class="section-number">
-                        01
-                    </span>
+                    <span class="section-number">01</span>
                 </div>
 
                 <div>
@@ -139,7 +141,10 @@
                         <th>Resultado</th>
                         <th>Situação</th>
                         <th>Pontos</th>
-                        <th>Ações</th>
+
+                        {% if admin_logado %}
+                            <th>Ações</th>
+                        {% endif %}
                     </tr>
                 </thead>
 
@@ -154,15 +159,9 @@
                                     {{ item.codigo }}
                                 </span>
 
-                                <strong>
-                                    {{ item.time_casa }}
-                                </strong>
-
+                                <strong>{{ item.time_casa }}</strong>
                                 x
-
-                                <strong>
-                                    {{ item.time_visitante }}
-                                </strong>
+                                <strong>{{ item.time_visitante }}</strong>
                             </td>
 
                             <td>
@@ -217,28 +216,36 @@
                                 {% endif %}
                             </td>
 
-                            <td>
-                                <form
-                                    method="POST"
-                                    action="{{ url_for(
-                                        'excluir_palpite',
-                                        palpite_id=item.palpite_id
-                                    ) }}"
-                                    data-confirm-message="Excluir este palpite?"
-                                >
-                                    <button
-                                        type="submit"
-                                        class="btn btn-sm btn-danger-soft"
+                            {% if admin_logado %}
+                                <td>
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'excluir_palpite',
+                                            palpite_id=item.palpite_id
+                                        ) }}"
+                                        data-confirm-message="Excluir este palpite?"
                                     >
-                                        Excluir
-                                    </button>
-                                </form>
-                            </td>
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            value="{{ csrf_token() }}"
+                                        >
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-danger-soft"
+                                        >
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% else %}
                         <tr>
                             <td
-                                colspan="6"
+                                colspan="{% if admin_logado %}6{% else %}5{% endif %}"
                                 class="empty-state"
                             >
                                 Este participante ainda

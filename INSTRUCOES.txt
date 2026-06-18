@@ -1,0 +1,31 @@
+ATUALIZAÇÃO DE SEGURANÇA DO BOLÃO
+
+1. Copie os arquivos respeitando as pastas deste pacote.
+
+2. Instale as dependências:
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+3. Gere o arquivo .env:
+   .\.venv\Scripts\python.exe gerar_seguranca.py
+
+4. Para testar localmente, mantenha no .env:
+   SESSION_COOKIE_SECURE=false
+
+5. Inicie:
+   .\.venv\Scripts\python.exe server.py
+
+6. Acesse:
+   http://127.0.0.1:8080
+
+7. Entre em:
+   http://127.0.0.1:8080/admin/login
+
+8. Depois de confirmar o login pelo endereço HTTPS do Cloudflare,
+   você pode alterar no .env:
+   SESSION_COOKIE_SECURE=true
+
+IMPORTANTE:
+- Não envie o arquivo .env para o GitHub.
+- Faça backup de data/bolao.json.
+- Ranking, jogos, participantes, perfis e palpites são públicos.
+- Todas as alterações exigem login administrativo.

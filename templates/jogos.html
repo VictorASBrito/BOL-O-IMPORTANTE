@@ -36,12 +36,18 @@
             </span>
         </div>
 
-        {% if jogo.situacao != "CANCELADO" %}
+        {% if admin_logado and jogo.situacao != "CANCELADO" %}
             <form
                 method="POST"
                 action="{{ url_for('informar_resultado', jogo_id=jogo.id) }}"
                 class="match-card-form"
             >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
                 <div class="match-card-body">
                     <div class="match-team-row">
                         <div class="match-team-name">
@@ -110,52 +116,58 @@
                 </div>
             </form>
         {% else %}
-            <div class="match-card-body">
-                <div class="match-team-row">
-                    <div class="match-team-name">
-                        {{ jogo.time_casa }}
-                    </div>
+            <div class="public-match-result">
+                <span>
+                    {{ jogo.time_casa }}
+                </span>
 
-                    <span class="prediction-score">-</span>
-                </div>
+                <strong>
+                    {% if jogo.gols_casa is not none and jogo.gols_visitante is not none %}
+                        {{ jogo.gols_casa }}
+                        x
+                        {{ jogo.gols_visitante }}
+                    {% else %}
+                        - x -
+                    {% endif %}
+                </strong>
 
-                <div class="match-middle-x">
-                    x
-                </div>
-
-                <div class="match-team-row">
-                    <div class="match-team-name">
-                        {{ jogo.time_visitante }}
-                    </div>
-
-                    <span class="prediction-score">-</span>
-                </div>
+                <span>
+                    {{ jogo.time_visitante }}
+                </span>
             </div>
 
             <div class="match-card-bottom">
                 <span class="match-card-date">
-                    Jogo cancelado
+                    {{ jogo.data_hora or "Data não informada" }}
                 </span>
 
-                <form
-                    method="POST"
-                    action="{{ url_for('excluir_jogo', jogo_id=jogo.id) }}"
-                    data-confirm-message="Excluir este jogo cancelado?"
-                >
-                    <button
-                        type="submit"
-                        class="btn btn-sm btn-danger-soft"
+                {% if admin_logado %}
+                    <form
+                        method="POST"
+                        action="{{ url_for('excluir_jogo', jogo_id=jogo.id) }}"
+                        data-confirm-message="Excluir este jogo?"
                     >
-                        Excluir
-                    </button>
-                </form>
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="{{ csrf_token() }}"
+                        >
+
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-danger-soft"
+                        >
+                            Excluir
+                        </button>
+                    </form>
+                {% endif %}
             </div>
         {% endif %}
     </article>
 {% endmacro %}
 
 {% block title %}
-    Jogos - Bolão da Copa
+    Jogos - {{ nome_site }}
 {% endblock %}
 
 {% block content %}
@@ -168,8 +180,8 @@
             <h1>Jogos</h1>
 
             <p>
-                Cadastre, pesquise, finalize ou exclua
-                os confrontos.
+                Consulte os confrontos e acompanhe
+                os resultados oficiais.
             </p>
         </div>
 
@@ -178,105 +190,116 @@
         </div>
     </div>
 
-    <div class="card copa-card mb-4">
-        <div class="card-body">
-            <div class="section-title">
-                <div>
-                    <span class="section-number">01</span>
+    {% if admin_logado %}
+        <div class="card copa-card mb-4">
+            <div class="card-body">
+                <div class="section-title">
+                    <div>
+                        <span class="section-number">01</span>
+                    </div>
+
+                    <div>
+                        <h2>Adicionar jogo</h2>
+
+                        <p>
+                            O código será gerado automaticamente.
+                        </p>
+                    </div>
                 </div>
 
-                <div>
-                    <h2>Adicionar jogo</h2>
+                <form
+                    method="POST"
+                    action="{{ url_for('adicionar_jogo') }}"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
 
-                    <p>
-                        O código será gerado automaticamente.
-                    </p>
-                </div>
+                    <div class="row g-3">
+                        <div class="col-md-2">
+                            <label class="form-label">
+                                Rodada
+                            </label>
+
+                            <input
+                                type="number"
+                                name="rodada"
+                                class="form-control"
+                                min="1"
+                                value="1"
+                                required
+                            >
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                Time da casa
+                            </label>
+
+                            <input
+                                type="text"
+                                name="time_casa"
+                                class="form-control"
+                                required
+                            >
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                Time visitante
+                            </label>
+
+                            <input
+                                type="text"
+                                name="time_visitante"
+                                class="form-control"
+                                required
+                            >
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                Data e horário
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                name="data_hora"
+                                class="form-control"
+                            >
+                        </div>
+
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button
+                                type="submit"
+                                class="btn btn-copa w-100"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <form
-                method="POST"
-                action="{{ url_for('adicionar_jogo') }}"
-            >
-                <div class="row g-3">
-                    <div class="col-md-2">
-                        <label class="form-label">
-                            Rodada
-                        </label>
-
-                        <input
-                            type="number"
-                            name="rodada"
-                            class="form-control"
-                            min="1"
-                            value="1"
-                            required
-                        >
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">
-                            Time da casa
-                        </label>
-
-                        <input
-                            type="text"
-                            name="time_casa"
-                            class="form-control"
-                            required
-                        >
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">
-                            Time visitante
-                        </label>
-
-                        <input
-                            type="text"
-                            name="time_visitante"
-                            class="form-control"
-                            required
-                        >
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">
-                            Data e horário
-                        </label>
-
-                        <input
-                            type="datetime-local"
-                            name="data_hora"
-                            class="form-control"
-                        >
-                    </div>
-
-                    <div class="col-md-1 d-flex align-items-end">
-                        <button
-                            type="submit"
-                            class="btn btn-copa w-100"
-                        >
-                            +
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
-    </div>
+    {% endif %}
 
     <div class="card copa-card mb-4">
         <div class="card-body">
             <div class="section-title">
                 <div>
-                    <span class="section-number">02</span>
+                    <span class="section-number">
+                        {% if admin_logado %}02{% else %}01{% endif %}
+                    </span>
                 </div>
 
                 <div>
                     <h2>Pesquisar jogos</h2>
 
                     <p>
-                        Pesquise pelo código, rodada, seleção ou situação.
+                        Pesquise pelo código, rodada,
+                        seleção ou situação.
                     </p>
                 </div>
             </div>
