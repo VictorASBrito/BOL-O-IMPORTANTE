@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ participante.nome }} - Bolão da Copa
+{% endblock %}
+
+{% block content %}
+    <div class="profile-header">
+        <div class="profile-avatar">
+            {{ participante.nome[0] | upper }}
+        </div>
+
+        <div class="profile-main-info">
+            <span class="page-eyebrow">
+                Perfil do participante
+            </span>
+
+            <h1>
+                {{ participante.nome }}
+            </h1>
+
+            <div class="aliases-list">
+                {% for apelido in participante.apelidos_exibicao %}
+                    <span class="alias-badge">
+                        {{ apelido }}
+                    </span>
+                {% else %}
+                    <span class="text-secondary">
+                        Nenhum apelido cadastrado
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="profile-header-actions">
+            <a
+                href="{{ url_for('listar_participantes') }}"
+                class="btn btn-outline-copa"
+            >
+                Voltar
+            </a>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'excluir_participante',
+                    participante_id=participante.id
+                ) }}"
+                data-confirm-message="Excluir {{ participante.nome }} e todos os seus palpites?"
+            >
+                <button
+                    type="submit"
+                    class="btn btn-danger-soft"
+                >
+                    Excluir participante
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="profile-stats-grid">
+        <div class="profile-stat-card highlight">
+            <span>Posição</span>
+
+            <strong>
+                {% if estatisticas.posicao %}
+                    {{ estatisticas.posicao }}º
+                {% else %}
+                    -
+                {% endif %}
+            </strong>
+        </div>
+
+        <div class="profile-stat-card">
+            <span>Pontos</span>
+            <strong>{{ estatisticas.pontos }}</strong>
+        </div>
+
+        <div class="profile-stat-card">
+            <span>Palpites</span>
+            <strong>{{ estatisticas.total_palpites }}</strong>
+        </div>
+
+        <div class="profile-stat-card">
+            <span>Placares exatos</span>
+            <strong>{{ estatisticas.placares_exatos }}</strong>
+        </div>
+
+        <div class="profile-stat-card">
+            <span>Resultados corretos</span>
+            <strong>{{ estatisticas.resultados_corretos }}</strong>
+        </div>
+
+        <div class="profile-stat-card">
+            <span>Aproveitamento</span>
+            <strong>
+                {{ estatisticas.aproveitamento }}%
+            </strong>
+        </div>
+    </div>
+
+    <div class="card copa-card">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">
+                        01
+                    </span>
+                </div>
+
+                <div>
+                    <h2>Histórico de palpites</h2>
+
+                    <p>
+                        Detalhes dos palpites e pontos
+                        conquistados em cada jogo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="search-toolbar">
+                <div class="search-field">
+                    <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Pesquisar jogo, time ou rodada"
+                        data-filter-input="historico-perfil"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table copa-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Jogo</th>
+                        <th>Palpite</th>
+                        <th>Resultado</th>
+                        <th>Situação</th>
+                        <th>Pontos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in historico %}
+                        <tr
+                            data-filter-item="historico-perfil"
+                            data-search-text="{{ item.codigo }} rodada {{ item.rodada }} {{ item.time_casa }} {{ item.time_visitante }}"
+                        >
+                            <td>
+                                <span class="game-code">
+                                    {{ item.codigo }}
+                                </span>
+
+                                <strong>
+                                    {{ item.time_casa }}
+                                </strong>
+
+                                x
+
+                                <strong>
+                                    {{ item.time_visitante }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                <span class="prediction-score">
+                                    {{ item.palpite_casa }}
+                                    x
+                                    {{ item.palpite_visitante }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {% if item.resultado_casa is not none %}
+                                    {{ item.resultado_casa }}
+                                    x
+                                    {{ item.resultado_visitante }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="status-badge
+                                    {% if item.situacao == 'ABERTO' %}
+                                        status-aberto
+                                    {% elif item.situacao == 'CANCELADO' %}
+                                        status-cancelado
+                                    {% else %}
+                                        status-finalizado
+                                    {% endif %}
+                                ">
+                                    {{ item.situacao }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {% if item.pontos is none %}
+                                    <span class="text-secondary">
+                                        Pendente
+                                    </span>
+                                {% elif item.pontos == 3 %}
+                                    <span class="points-badge points-exact">
+                                        3 pontos
+                                    </span>
+                                {% elif item.pontos == 1 %}
+                                    <span class="points-badge points-result">
+                                        1 ponto
+                                    </span>
+                                {% else %}
+                                    <span class="points-badge points-zero">
+                                        0 pontos
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'excluir_palpite',
+                                        palpite_id=item.palpite_id
+                                    ) }}"
+                                    data-confirm-message="Excluir este palpite?"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-danger-soft"
+                                    >
+                                        Excluir
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td
+                                colspan="6"
+                                class="empty-state"
+                            >
+                                Este participante ainda
+                                não possui palpites.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

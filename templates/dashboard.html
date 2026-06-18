@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Início - Bolão da Copa
+{% endblock %}
+
+{% block content %}
+    <section class="copa-hero">
+        <div>
+            <span class="hero-eyebrow">
+                Campeonato mundial
+            </span>
+
+            <h1>
+                Bolão da Copa
+            </h1>
+
+            <p>
+                Cadastre os jogos, importe os palpites
+                e acompanhe a disputa pelo topo do ranking.
+            </p>
+
+            <div class="hero-actions">
+                <a
+                    href="{{ url_for('listar_palpites') }}"
+                    class="btn btn-copa"
+                >
+                    Importar palpites
+                </a>
+
+                <a
+                    href="{{ url_for('exibir_ranking') }}"
+                    class="btn btn-outline-copa"
+                >
+                    Ver ranking
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-trophy">
+            <div class="trophy-glow"></div>
+            <span>🏆</span>
+        </div>
+    </section>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <span class="dashboard-label">
+                    Participantes
+                </span>
+
+                <strong>
+                    {{ quantidade_participantes }}
+                </strong>
+
+                <small>
+                    Pessoas disputando o título
+                </small>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <span class="dashboard-label">
+                    Jogos
+                </span>
+
+                <strong>
+                    {{ quantidade_jogos }}
+                </strong>
+
+                <small>
+                    {{ jogos_abertos }} abertos e
+                    {{ jogos_finalizados }} finalizados
+                </small>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <span class="dashboard-label">
+                    Palpites
+                </span>
+
+                <strong>
+                    {{ quantidade_palpites }}
+                </strong>
+
+                <small>
+                    Resultados registrados
+                </small>
+            </div>
+        </div>
+    </div>
+
+    {% if lider %}
+        <div class="card copa-card leader-card">
+            <div class="card-body">
+                <div>
+                    <span class="page-eyebrow">
+                        Líder atual
+                    </span>
+
+                    <h2>
+                        {{ lider.nome }}
+                    </h2>
+
+                    <p>
+                        {{ lider.pontos }} pontos,
+                        {{ lider.placares_exatos }}
+                        placares exatos e
+                        {{ lider.resultados_corretos }}
+                        resultados corretos.
+                    </p>
+                </div>
+
+                <div class="leader-position">
+                    1º
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="card copa-card">
+            <div class="card-body empty-state">
+                Cadastre os participantes para iniciar
+                a competição.
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

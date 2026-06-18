@@ -1,0 +1,401 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Ranking - Bolão da Copa
+{% endblock %}
+
+{% block content %}
+    {% set maior_pontuacao = ranking[0].pontos if ranking else 0 %}
+
+    <div class="page-header ranking-page-header">
+        <div>
+            <span class="page-eyebrow">
+                Classificação geral
+            </span>
+
+            <h1>Ranking do Bolão</h1>
+
+            <p>
+                Acompanhe a disputa pelo título, os melhores
+                palpiteiros e os maiores especialistas em
+                placares exatos.
+            </p>
+        </div>
+
+        <div class="ranking-header-trophy">
+            🏆
+        </div>
+    </div>
+
+    {% if ranking %}
+        <section class="ranking-podium-section">
+            <div class="ranking-section-heading">
+                <div>
+                    <span class="page-eyebrow">
+                        Pódio atual
+                    </span>
+
+                    <h2>Os donos da rodada</h2>
+                </div>
+
+                <span class="ranking-participant-count">
+                    {{ ranking | length }}
+                    participante{% if ranking | length != 1 %}s{% endif %}
+                </span>
+            </div>
+
+            <div class="ranking-podium">
+                {% if ranking | length > 1 %}
+                    {% set segundo = ranking[1] %}
+
+                    <a
+                        href="{{ url_for(
+                            'perfil_participante',
+                            participante_id=segundo.participante_id
+                        ) }}"
+                        class="podium-card podium-second"
+                    >
+                        <div class="podium-medal">
+                            🥈
+                        </div>
+
+                        <div class="podium-avatar">
+                            {{ segundo.nome[0] | upper }}
+                        </div>
+
+                        <span class="podium-position">
+                            2º lugar
+                        </span>
+
+                        <h3>{{ segundo.nome }}</h3>
+
+                        <strong class="podium-points">
+                            {{ segundo.pontos }}
+                            <small>pts</small>
+                        </strong>
+
+                        <div class="podium-stats">
+                            <span>
+                                🎯 {{ segundo.placares_exatos }}
+                                exato{% if segundo.placares_exatos != 1 %}s{% endif %}
+                            </span>
+
+                            <span>
+                                ⚽ {{ segundo.resultados_corretos }}
+                                resultado{% if segundo.resultados_corretos != 1 %}s{% endif %}
+                            </span>
+                        </div>
+
+                        <div class="podium-base">
+                            2
+                        </div>
+                    </a>
+                {% endif %}
+
+                {% set primeiro = ranking[0] %}
+
+                <a
+                    href="{{ url_for(
+                        'perfil_participante',
+                        participante_id=primeiro.participante_id
+                    ) }}"
+                    class="podium-card podium-first"
+                >
+                    <div class="podium-crown">
+                        👑
+                    </div>
+
+                    <div class="podium-medal">
+                        🥇
+                    </div>
+
+                    <div class="podium-avatar">
+                        {{ primeiro.nome[0] | upper }}
+                    </div>
+
+                    <span class="podium-position">
+                        Líder
+                    </span>
+
+                    <h3>{{ primeiro.nome }}</h3>
+
+                    <strong class="podium-points">
+                        {{ primeiro.pontos }}
+                        <small>pts</small>
+                    </strong>
+
+                    <div class="podium-stats">
+                        <span>
+                            🎯 {{ primeiro.placares_exatos }}
+                            exato{% if primeiro.placares_exatos != 1 %}s{% endif %}
+                        </span>
+
+                        <span>
+                            ⚽ {{ primeiro.resultados_corretos }}
+                            resultado{% if primeiro.resultados_corretos != 1 %}s{% endif %}
+                        </span>
+                    </div>
+
+                    <div class="podium-base">
+                        1
+                    </div>
+                </a>
+
+                {% if ranking | length > 2 %}
+                    {% set terceiro = ranking[2] %}
+
+                    <a
+                        href="{{ url_for(
+                            'perfil_participante',
+                            participante_id=terceiro.participante_id
+                        ) }}"
+                        class="podium-card podium-third"
+                    >
+                        <div class="podium-medal">
+                            🥉
+                        </div>
+
+                        <div class="podium-avatar">
+                            {{ terceiro.nome[0] | upper }}
+                        </div>
+
+                        <span class="podium-position">
+                            3º lugar
+                        </span>
+
+                        <h3>{{ terceiro.nome }}</h3>
+
+                        <strong class="podium-points">
+                            {{ terceiro.pontos }}
+                            <small>pts</small>
+                        </strong>
+
+                        <div class="podium-stats">
+                            <span>
+                                🎯 {{ terceiro.placares_exatos }}
+                                exato{% if terceiro.placares_exatos != 1 %}s{% endif %}
+                            </span>
+
+                            <span>
+                                ⚽ {{ terceiro.resultados_corretos }}
+                                resultado{% if terceiro.resultados_corretos != 1 %}s{% endif %}
+                            </span>
+                        </div>
+
+                        <div class="podium-base">
+                            3
+                        </div>
+                    </a>
+                {% endif %}
+            </div>
+        </section>
+
+        <div class="card copa-card ranking-table-card">
+            <div class="card-body">
+                <div class="section-title">
+                    <div>
+                        <span class="section-number">
+                            01
+                        </span>
+                    </div>
+
+                    <div>
+                        <h2>Classificação completa</h2>
+
+                        <p>
+                            Pesquise um participante e acompanhe
+                            sua posição, pontuação e desempenho.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ranking-toolbar">
+                    <div class="search-field">
+                        <input
+                            type="search"
+                            class="form-control"
+                            placeholder="Pesquisar participante..."
+                            data-filter-input="ranking"
+                        >
+                    </div>
+
+                    <div class="ranking-legend">
+                        <span>
+                            🎯 Placar exato
+                        </span>
+
+                        <span>
+                            ⚽ Resultado correto
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table copa-table ranking-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Participante</th>
+                            <th>Desempenho</th>
+                            <th>Pontos</th>
+                            <th>Placares exatos</th>
+                            <th>Resultados corretos</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for participante in ranking %}
+                            {% set percentual = (
+                                participante.pontos * 100 / maior_pontuacao
+                                if maior_pontuacao > 0
+                                else 0
+                            ) %}
+
+                            <tr
+                                data-filter-item="ranking"
+                                data-search-text="{{ participante.nome }} posição {{ participante.posicao }} {{ participante.pontos }} pontos"
+                            >
+                                <td>
+                                    <span class="
+                                        ranking-position-badge
+                                        {% if participante.posicao == 1 %}
+                                            ranking-position-first
+                                        {% elif participante.posicao == 2 %}
+                                            ranking-position-second
+                                        {% elif participante.posicao == 3 %}
+                                            ranking-position-third
+                                        {% endif %}
+                                    ">
+                                        {% if participante.posicao == 1 %}
+                                            🥇
+                                        {% elif participante.posicao == 2 %}
+                                            🥈
+                                        {% elif participante.posicao == 3 %}
+                                            🥉
+                                        {% endif %}
+
+                                        {{ participante.posicao }}º
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a
+                                        href="{{ url_for(
+                                            'perfil_participante',
+                                            participante_id=participante.participante_id
+                                        ) }}"
+                                        class="ranking-player-link"
+                                    >
+                                        <span class="ranking-player-avatar">
+                                            {{ participante.nome[0] | upper }}
+                                        </span>
+
+                                        <span>
+                                            <strong>
+                                                {{ participante.nome }}
+                                            </strong>
+
+                                            {% if participante.posicao == 1 %}
+                                                <small>
+                                                    Líder atual
+                                                </small>
+                                            {% elif participante.posicao <= 3 %}
+                                                <small>
+                                                    No pódio
+                                                </small>
+                                            {% else %}
+                                                <small>
+                                                    Em busca do topo
+                                                </small>
+                                            {% endif %}
+                                        </span>
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <div class="ranking-progress-wrapper">
+                                        <div class="ranking-progress-track">
+                                            <div
+                                                class="ranking-progress-fill"
+                                                style="width: {{ percentual }}%;"
+                                            ></div>
+                                        </div>
+
+                                        <small>
+                                            {{ percentual | round(0) | int }}%
+                                            da pontuação do líder
+                                        </small>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="ranking-score">
+                                        {{ participante.pontos }}
+                                        <small>pts</small>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="ranking-stat-chip exact">
+                                        🎯
+                                        {{ participante.placares_exatos }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="ranking-stat-chip result">
+                                        ⚽
+                                        {{ participante.resultados_corretos }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a
+                                        href="{{ url_for(
+                                            'perfil_participante',
+                                            participante_id=participante.participante_id
+                                        ) }}"
+                                        class="btn btn-sm btn-outline-copa"
+                                    >
+                                        Ver perfil
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td
+                                    colspan="7"
+                                    class="empty-state"
+                                >
+                                    Nenhum participante cadastrado.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="ranking-empty-state">
+            <div class="ranking-empty-icon">
+                🏆
+            </div>
+
+            <h2>O pódio ainda está vazio</h2>
+
+            <p>
+                Cadastre participantes e palpites para
+                começar a disputa.
+            </p>
+
+            <a
+                href="{{ url_for('listar_participantes') }}"
+                class="btn btn-copa"
+            >
+                Cadastrar participantes
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

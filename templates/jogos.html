@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% macro card_jogo(jogo) %}
+    <article
+        class="match-card"
+        data-filter-item="jogos"
+        data-search-text="{{ jogo.codigo }} partida {{ jogo.codigo }} rodada {{ jogo.rodada }} {{ jogo.time_casa }} {{ jogo.time_visitante }} {{ jogo.situacao }}"
+    >
+        <div class="match-card-top">
+            <div class="match-card-label">
+                <span class="match-card-caption">
+                    Partida {{ jogo.codigo }}
+                </span>
+
+                <div class="match-card-meta">
+                    <span class="game-code">
+                        {{ jogo.codigo }}
+                    </span>
+
+                    <span class="manual-round">
+                        Rodada {{ jogo.rodada }}
+                    </span>
+                </div>
+            </div>
+
+            <span class="status-badge
+                {% if jogo.situacao == 'ABERTO' %}
+                    status-aberto
+                {% elif jogo.situacao == 'CANCELADO' %}
+                    status-cancelado
+                {% else %}
+                    status-finalizado
+                {% endif %}
+            ">
+                {{ jogo.situacao }}
+            </span>
+        </div>
+
+        {% if jogo.situacao != "CANCELADO" %}
+            <form
+                method="POST"
+                action="{{ url_for('informar_resultado', jogo_id=jogo.id) }}"
+                class="match-card-form"
+            >
+                <div class="match-card-body">
+                    <div class="match-team-row">
+                        <div class="match-team-name">
+                            {{ jogo.time_casa }}
+                        </div>
+
+                        <input
+                            type="number"
+                            name="gols_casa"
+                            class="form-control match-goal-input"
+                            min="0"
+                            value="{% if jogo.gols_casa is not none %}{{ jogo.gols_casa }}{% endif %}"
+                            required
+                        >
+                    </div>
+
+                    <div class="match-middle-x">
+                        x
+                    </div>
+
+                    <div class="match-team-row">
+                        <div class="match-team-name">
+                            {{ jogo.time_visitante }}
+                        </div>
+
+                        <input
+                            type="number"
+                            name="gols_visitante"
+                            class="form-control match-goal-input"
+                            min="0"
+                            value="{% if jogo.gols_visitante is not none %}{{ jogo.gols_visitante }}{% endif %}"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="match-card-bottom">
+                    <span class="match-card-date">
+                        {{ jogo.data_hora or "Data não informada" }}
+                    </span>
+
+                    <div class="management-actions">
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-result"
+                        >
+                            {% if jogo.situacao == "FINALIZADO" %}
+                                Atualizar resultado
+                            {% else %}
+                                Finalizar jogo
+                            {% endif %}
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-danger-soft"
+                            formaction="{{ url_for('excluir_jogo', jogo_id=jogo.id) }}"
+                            formmethod="POST"
+                            formnovalidate
+                            data-delete-button
+                            data-confirm-message="Excluir {{ jogo.time_casa }} x {{ jogo.time_visitante }} e todos os palpites vinculados?"
+                        >
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </form>
+        {% else %}
+            <div class="match-card-body">
+                <div class="match-team-row">
+                    <div class="match-team-name">
+                        {{ jogo.time_casa }}
+                    </div>
+
+                    <span class="prediction-score">-</span>
+                </div>
+
+                <div class="match-middle-x">
+                    x
+                </div>
+
+                <div class="match-team-row">
+                    <div class="match-team-name">
+                        {{ jogo.time_visitante }}
+                    </div>
+
+                    <span class="prediction-score">-</span>
+                </div>
+            </div>
+
+            <div class="match-card-bottom">
+                <span class="match-card-date">
+                    Jogo cancelado
+                </span>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('excluir_jogo', jogo_id=jogo.id) }}"
+                    data-confirm-message="Excluir este jogo cancelado?"
+                >
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-danger-soft"
+                    >
+                        Excluir
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+    </article>
+{% endmacro %}
+
+{% block title %}
+    Jogos - Bolão da Copa
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <div>
+            <span class="page-eyebrow">
+                Tabela da competição
+            </span>
+
+            <h1>Jogos</h1>
+
+            <p>
+                Cadastre, pesquise, finalize ou exclua
+                os confrontos.
+            </p>
+        </div>
+
+        <div class="header-trophy">
+            🏆
+        </div>
+    </div>
+
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">01</span>
+                </div>
+
+                <div>
+                    <h2>Adicionar jogo</h2>
+
+                    <p>
+                        O código será gerado automaticamente.
+                    </p>
+                </div>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('adicionar_jogo') }}"
+            >
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <label class="form-label">
+                            Rodada
+                        </label>
+
+                        <input
+                            type="number"
+                            name="rodada"
+                            class="form-control"
+                            min="1"
+                            value="1"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Time da casa
+                        </label>
+
+                        <input
+                            type="text"
+                            name="time_casa"
+                            class="form-control"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Time visitante
+                        </label>
+
+                        <input
+                            type="text"
+                            name="time_visitante"
+                            class="form-control"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">
+                            Data e horário
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            name="data_hora"
+                            class="form-control"
+                        >
+                    </div>
+
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button
+                            type="submit"
+                            class="btn btn-copa w-100"
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">02</span>
+                </div>
+
+                <div>
+                    <h2>Pesquisar jogos</h2>
+
+                    <p>
+                        Pesquise pelo código, rodada, seleção ou situação.
+                    </p>
+                </div>
+            </div>
+
+            <div class="search-toolbar">
+                <div class="search-field">
+                    <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Ex.: J25, Brasil, rodada 1"
+                        data-filter-input="jogos"
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="games-section">
+        <div class="games-section-header">
+            <div>
+                <span class="page-eyebrow">
+                    Em andamento
+                </span>
+
+                <h2>Jogos abertos</h2>
+            </div>
+
+            <span class="games-counter">
+                {{ jogos_abertos | length }}
+            </span>
+        </div>
+
+        <div class="matches-grid">
+            {% for jogo in jogos_abertos %}
+                {{ card_jogo(jogo) }}
+            {% else %}
+                <div class="empty-state copa-card">
+                    Nenhum jogo aberto.
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="closed-games-control">
+        <button
+            class="btn btn-outline-copa"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#jogosFechados"
+            aria-expanded="false"
+            aria-controls="jogosFechados"
+        >
+            Ver jogos fechados
+
+            <span class="games-counter ms-2">
+                {{ jogos_fechados | length }}
+            </span>
+        </button>
+    </div>
+
+    <div
+        class="collapse"
+        id="jogosFechados"
+    >
+        <section class="games-section mt-4">
+            <div class="games-section-header">
+                <div>
+                    <span class="page-eyebrow">
+                        Histórico
+                    </span>
+
+                    <h2>Jogos fechados</h2>
+                </div>
+            </div>
+
+            <div class="matches-grid">
+                {% for jogo in jogos_fechados %}
+                    {{ card_jogo(jogo) }}
+                {% else %}
+                    <div class="empty-state copa-card">
+                        Nenhum jogo fechado.
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}

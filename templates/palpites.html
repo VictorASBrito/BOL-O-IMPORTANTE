@@ -1,0 +1,516 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Palpites - Bolão da Copa
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <div>
+            <span class="page-eyebrow">
+                Central de palpites
+            </span>
+
+            <h1>Palpites</h1>
+
+            <p>
+                Importe mensagens do WhatsApp, cadastre
+                palpites manualmente e consulte os registros.
+            </p>
+        </div>
+
+        <div class="header-trophy">
+            ⚽
+        </div>
+    </div>
+
+    <!-- Controle de jogos fechados -->
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="closed-games-switch">
+                <div>
+                    <h2>
+                        Permitir palpites em jogos fechados
+                    </h2>
+
+                    <p>
+                        Ative somente quando precisar corrigir
+                        ou cadastrar um palpite depois do
+                        encerramento do jogo.
+                    </p>
+                </div>
+
+                <div class="form-check form-switch">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="permitirJogosFechados"
+                        {% if permitir_fechados %}
+                            checked
+                        {% endif %}
+                    >
+
+                    <label
+                        class="form-check-label"
+                        for="permitirJogosFechados"
+                        id="textoPermitirFechados"
+                    >
+                        {% if permitir_fechados %}
+                            Ligado
+                        {% else %}
+                            Desligado
+                        {% endif %}
+                    </label>
+                </div>
+            </div>
+
+            <div
+                class="closed-games-warning
+                {% if not permitir_fechados %}
+                    d-none
+                {% endif %}"
+                id="avisoJogosFechados"
+            >
+                Atenção: jogos já finalizados poderão receber
+                novos palpites. Isso poderá alterar o ranking.
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultado da importação -->
+    {% if resultado_importacao %}
+        <div class="card copa-card import-result mb-4">
+            <div class="card-body">
+                <div class="section-title">
+                    <div>
+                        <span class="section-number">
+                            ✓
+                        </span>
+                    </div>
+
+                    <div>
+                        <h2>Resultado da importação</h2>
+
+                        <p>
+                            Resumo do processamento da mensagem
+                            enviada pelo WhatsApp.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="import-stat">
+                            <span>
+                                Participantes criados
+                            </span>
+
+                            <strong>
+                                {{ resultado_importacao.participantes_criados }}
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="import-stat">
+                            <span>
+                                Palpites adicionados
+                            </span>
+
+                            <strong>
+                                {{ resultado_importacao.palpites_criados }}
+                            </strong>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="import-stat">
+                            <span>
+                                Palpites atualizados
+                            </span>
+
+                            <strong>
+                                {{ resultado_importacao.palpites_atualizados }}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+
+                {% if resultado_importacao.erros %}
+                    <div class="import-errors mt-4">
+                        <h3>
+                            Linhas não importadas
+                        </h3>
+
+                        <ul>
+                            {% for erro in resultado_importacao.erros %}
+                                <li>
+                                    {{ erro }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="alert alert-success mt-4 mb-0">
+                        Toda a mensagem foi importada
+                        corretamente.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Importação pelo WhatsApp -->
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">
+                        01
+                    </span>
+                </div>
+
+                <div>
+                    <h2>Importar do WhatsApp</h2>
+
+                    <p>
+                        Cole a mensagem completa com os
+                        participantes e seus palpites.
+                    </p>
+                </div>
+            </div>
+
+            <div class="import-info mb-3">
+                O nome do participante deve aparecer em uma
+                linha. Os palpites devem aparecer nas linhas
+                seguintes.
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('importar_palpites') }}"
+            >
+                <input
+                    type="hidden"
+                    name="permitir_jogos_fechados"
+                    class="campo-permitir-fechados"
+                    value="{% if permitir_fechados %}1{% else %}0{% endif %}"
+                >
+
+                <label
+                    for="mensagemWhatsapp"
+                    class="form-label"
+                >
+                    Mensagem completa
+                </label>
+
+                <textarea
+                    id="mensagemWhatsapp"
+                    name="mensagem_whatsapp"
+                    class="form-control whatsapp-textarea"
+                    rows="15"
+                    spellcheck="false"
+                    placeholder="Gabriel
+
+Brasil 1 a 1 Marrocos
+México 2 a 0 Canadá"
+                    required
+                ></textarea>
+
+                <div class="d-flex justify-content-end mt-3">
+                    <button
+                        type="submit"
+                        class="btn btn-copa"
+                    >
+                        Importar palpites
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cadastro manual -->
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">
+                        02
+                    </span>
+                </div>
+
+                <div>
+                    <h2>Cadastro manual em lote</h2>
+
+                    <p>
+                        Selecione o participante e preencha
+                        todos os jogos desejados. Campos
+                        vazios serão ignorados.
+                    </p>
+                </div>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('adicionar_palpite') }}"
+            >
+                <input
+                    type="hidden"
+                    name="permitir_jogos_fechados"
+                    class="campo-permitir-fechados"
+                    value="{% if permitir_fechados %}1{% else %}0{% endif %}"
+                >
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Participante
+                        </label>
+
+                        <select
+                            name="participante_id"
+                            class="form-select"
+                            required
+                        >
+                            <option value="">
+                                Selecione o participante
+                            </option>
+
+                            {% for participante in participantes %}
+                                {% if participante.ativo %}
+                                    <option value="{{ participante.id }}">
+                                        {{ participante.nome }}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="manual-predictions-list">
+                    {% for jogo in jogos_manuais %}
+                        <div
+                            class="manual-game-row
+                            {% if jogo.fechado %}
+                                manual-closed-game
+
+                                {% if not permitir_fechados %}
+                                    d-none
+                                {% endif %}
+                            {% endif %}"
+                            data-jogo-fechado="{% if jogo.fechado %}1{% else %}0{% endif %}"
+                        >
+                            <div class="manual-game-info">
+                                <div>
+                                    <span class="game-code">
+                                        {{ jogo.codigo }}
+                                    </span>
+
+                                    <span class="manual-round">
+                                        Rodada {{ jogo.rodada }}
+                                    </span>
+                                </div>
+
+                                {% if jogo.fechado %}
+                                    <span class="status-badge status-finalizado">
+                                        {{ jogo.situacao }}
+                                    </span>
+                                {% else %}
+                                    <span class="status-badge status-aberto">
+                                        Aberto
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            <div class="manual-scoreline">
+                                <span class="manual-team manual-home-team">
+                                    {{ jogo.time_casa }}
+                                </span>
+
+                                <input
+                                    type="number"
+                                    name="gols_casa_{{ jogo.id }}"
+                                    class="form-control manual-score-input"
+                                    min="0"
+                                    placeholder="-"
+                                    aria-label="Gols de {{ jogo.time_casa }}"
+                                    {% if jogo.fechado and not permitir_fechados %}
+                                        disabled
+                                    {% endif %}
+                                >
+
+                                <span class="manual-score-x">
+                                    x
+                                </span>
+
+                                <input
+                                    type="number"
+                                    name="gols_visitante_{{ jogo.id }}"
+                                    class="form-control manual-score-input"
+                                    min="0"
+                                    placeholder="-"
+                                    aria-label="Gols de {{ jogo.time_visitante }}"
+                                    {% if jogo.fechado and not permitir_fechados %}
+                                        disabled
+                                    {% endif %}
+                                >
+
+                                <span class="manual-team manual-away-team">
+                                    {{ jogo.time_visitante }}
+                                </span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="empty-state">
+                            Nenhum jogo disponível para receber
+                            palpites.
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button
+                        type="submit"
+                        class="btn btn-copa"
+                    >
+                        Salvar palpites preenchidos
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Palpites cadastrados -->
+    <div class="card copa-card">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">
+                        03
+                    </span>
+                </div>
+
+                <div>
+                    <h2>Palpites cadastrados</h2>
+
+                    <p>
+                        Consulte, pesquise ou exclua os
+                        palpites registrados.
+                    </p>
+                </div>
+            </div>
+
+            <div class="search-toolbar">
+                <div class="search-field">
+                    <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Pesquisar participante, jogo, seleção ou rodada"
+                        data-filter-input="palpites"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table copa-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Participante</th>
+                        <th>Rodada</th>
+                        <th>Jogo</th>
+                        <th>Palpite</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for palpite in palpites %}
+                        <tr
+                            data-filter-item="palpites"
+                            data-search-text="{{ palpite.participante_nome }} {{ palpite.jogo_codigo }} rodada {{ palpite.rodada }} {{ palpite.time_casa }} {{ palpite.time_visitante }} {{ palpite.gols_casa }} x {{ palpite.gols_visitante }}"
+                        >
+                            <td>
+                                <a
+                                    href="{{ url_for(
+                                        'perfil_participante',
+                                        participante_id=palpite.participante_id
+                                    ) }}"
+                                    class="participant-table-link"
+                                >
+                                    {{ palpite.participante_nome }}
+                                </a>
+                            </td>
+
+                            <td>
+                                {{ palpite.rodada }}
+                            </td>
+
+                            <td>
+                                <span class="game-code">
+                                    {{ palpite.jogo_codigo }}
+                                </span>
+
+                                {{ palpite.time_casa }}
+
+                                <span class="text-secondary">
+                                    x
+                                </span>
+
+                                {{ palpite.time_visitante }}
+                            </td>
+
+                            <td>
+                                <span class="prediction-score">
+                                    {{ palpite.gols_casa }}
+                                    x
+                                    {{ palpite.gols_visitante }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="management-actions">
+                                    <a
+                                        href="{{ url_for(
+                                            'perfil_participante',
+                                            participante_id=palpite.participante_id
+                                        ) }}"
+                                        class="btn btn-sm btn-outline-copa"
+                                    >
+                                        Perfil
+                                    </a>
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'excluir_palpite',
+                                            palpite_id=palpite.id
+                                        ) }}"
+                                        data-confirm-message="Deseja excluir o palpite de {{ palpite.participante_nome }} para o jogo {{ palpite.time_casa }} x {{ palpite.time_visitante }}?"
+                                    >
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-danger-soft"
+                                        >
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td
+                                colspan="5"
+                                class="empty-state"
+                            >
+                                Nenhum palpite cadastrado.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Participantes - Bolão da Copa
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <div>
+            <span class="page-eyebrow">
+                Seleção de competidores
+            </span>
+
+            <h1>Participantes</h1>
+
+            <p>
+                Cadastre, pesquise e acompanhe os detalhes
+                de cada participante.
+            </p>
+        </div>
+
+        <div class="header-trophy">
+            👥
+        </div>
+    </div>
+
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">01</span>
+                </div>
+
+                <div>
+                    <h2>Adicionar participante</h2>
+
+                    <p>
+                        Separe os apelidos utilizando
+                        vírgulas.
+                    </p>
+                </div>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'adicionar_participante'
+                ) }}"
+            >
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">
+                            Nome principal
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nome"
+                            class="form-control"
+                            required
+                        >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Apelidos
+                        </label>
+
+                        <input
+                            type="text"
+                            name="apelidos"
+                            class="form-control"
+                            placeholder="Biel, Gabs, Gabrielzinho"
+                        >
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button
+                            type="submit"
+                            class="btn btn-copa w-100"
+                        >
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card copa-card">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">02</span>
+                </div>
+
+                <div>
+                    <h2>Participantes cadastrados</h2>
+
+                    <p>
+                        Pesquise pelo nome principal ou
+                        por qualquer apelido.
+                    </p>
+                </div>
+            </div>
+
+            <div class="search-toolbar">
+                <div class="search-field">
+                    <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Pesquisar participante ou apelido"
+                        data-filter-input="participantes"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table copa-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Participante</th>
+                        <th>Apelidos</th>
+                        <th>Situação</th>
+                        <th>Editar apelidos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for participante in participantes %}
+                        <tr
+                            data-filter-item="participantes"
+                            data-search-text="{{ participante.nome }} {{ participante.apelidos_exibicao | join(' ') }}"
+                        >
+                            <td>
+                                <a
+                                    href="{{ url_for(
+                                        'perfil_participante',
+                                        participante_id=participante.id
+                                    ) }}"
+                                    class="participant-link"
+                                >
+                                    <span class="participant-mini-avatar">
+                                        {{ participante.nome[0] | upper }}
+                                    </span>
+
+                                    <strong>
+                                        {{ participante.nome }}
+                                    </strong>
+                                </a>
+                            </td>
+
+                            <td>
+                                <div class="aliases-list">
+                                    {% for apelido in participante.apelidos_exibicao %}
+                                        <span class="alias-badge">
+                                            {{ apelido }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-secondary">
+                                            Nenhum
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </td>
+
+                            <td>
+                                {% if participante.ativo %}
+                                    <span class="status-badge status-aberto">
+                                        Ativo
+                                    </span>
+                                {% else %}
+                                    <span class="status-badge status-cancelado">
+                                        Inativo
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'atualizar_apelidos',
+                                        participante_id=participante.id
+                                    ) }}"
+                                    class="aliases-edit-form"
+                                >
+                                    <input
+                                        type="text"
+                                        name="apelidos"
+                                        class="form-control"
+                                        value="{{ participante.apelidos_exibicao | join(', ') }}"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-result"
+                                    >
+                                        Salvar
+                                    </button>
+                                </form>
+                            </td>
+
+                            <td>
+                                <div class="management-actions">
+                                    <a
+                                        href="{{ url_for(
+                                            'perfil_participante',
+                                            participante_id=participante.id
+                                        ) }}"
+                                        class="btn btn-sm btn-outline-copa"
+                                    >
+                                        Perfil
+                                    </a>
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'excluir_participante',
+                                            participante_id=participante.id
+                                        ) }}"
+                                        data-confirm-message="Excluir {{ participante.nome }} e todos os palpites vinculados?"
+                                    >
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-danger-soft"
+                                        >
+                                            Excluir
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td
+                                colspan="5"
+                                class="empty-state"
+                            >
+                                Nenhum participante
+                                cadastrado.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
