@@ -153,6 +153,11 @@
                     </div>
                 </div>
 
+                <div class="import-format-note">
+                    Para jogos mata-mata empatados, informe quem passa
+                    na linha seguinte. Exemplo: <strong>Canadá passa</strong>.
+                </div>
+
                 <form
                     method="POST"
                     action="{{ url_for('importar_palpites') }}"
@@ -175,8 +180,11 @@
                         class="form-control whatsapp-textarea"
                         rows="15"
                         placeholder="Gabriel
+Brasil 1 a 0 Marrocos
 
-Brasil 1 a 1 Marrocos"
+Teste
+Canadá 1 a 1 África do Sul
+Canadá passa"
                         required
                     ></textarea>
 
@@ -273,6 +281,16 @@ Brasil 1 a 1 Marrocos"
                                         <span class="manual-round">
                                             Rodada {{ jogo.rodada }}
                                         </span>
+
+                                        {% if jogo.tipo_jogo == "MATA_MATA" %}
+                                            <span class="match-type-badge knockout">
+                                                Mata-mata
+                                            </span>
+                                        {% else %}
+                                            <span class="match-type-badge league">
+                                                Normal
+                                            </span>
+                                        {% endif %}
                                     </div>
 
                                     {% if jogo.fechado %}
@@ -319,6 +337,38 @@ Brasil 1 a 1 Marrocos"
                                         {{ jogo.time_visitante }}
                                     </span>
                                 </div>
+
+                                {% if jogo.tipo_jogo == "MATA_MATA" %}
+                                    <div class="prediction-winner-box manual-winner-box">
+                                        <span>
+                                            Se empatar, classifica:
+                                        </span>
+
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="vencedor_{{ jogo.id }}"
+                                                value="CASA"
+                                                {% if jogo.fechado and not permitir_fechados %}
+                                                    disabled
+                                                {% endif %}
+                                            >
+                                            {{ jogo.time_casa }}
+                                        </label>
+
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="vencedor_{{ jogo.id }}"
+                                                value="VISITANTE"
+                                                {% if jogo.fechado and not permitir_fechados %}
+                                                    disabled
+                                                {% endif %}
+                                            >
+                                            {{ jogo.time_visitante }}
+                                        </label>
+                                    </div>
+                                {% endif %}
                             </div>
                         {% else %}
                             <div class="empty-state">
@@ -411,6 +461,12 @@ Brasil 1 a 1 Marrocos"
                                     {{ palpite.jogo_codigo }}
                                 </span>
 
+                                {% if palpite.mata_mata %}
+                                    <span class="match-type-badge knockout">
+                                        Mata-mata
+                                    </span>
+                                {% endif %}
+
                                 {{ palpite.time_casa }}
                                 x
                                 {{ palpite.time_visitante }}
@@ -422,6 +478,13 @@ Brasil 1 a 1 Marrocos"
                                     x
                                     {{ palpite.gols_visitante }}
                                 </span>
+
+                                {% if palpite.mata_mata and palpite.vencedor_nome %}
+                                    <div class="classified-team-line small">
+                                        Classifica:
+                                        <strong>{{ palpite.vencedor_nome }}</strong>
+                                    </div>
+                                {% endif %}
                             </td>
 
                             {% if admin_logado %}

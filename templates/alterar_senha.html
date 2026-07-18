@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Alterar senha - {{ nome_site }}
+{% endblock %}
+
+{% block content %}
+    <div class="login-page">
+        <div class="login-card password-change-card">
+            <div class="login-icon">
+                🔑
+            </div>
+
+            <span class="page-eyebrow">
+                Segurança da conta
+            </span>
+
+            <h1>Alterar minha senha</h1>
+
+            <p>
+                Informe sua senha atual e escolha uma
+                nova senha para acessar o bolão.
+            </p>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'auth.alterar_senha'
+                ) }}"
+            >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <div class="mb-3">
+                    <label
+                        for="senhaAtual"
+                        class="form-label"
+                    >
+                        Senha atual
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senhaAtual"
+                        name="senha_atual"
+                        class="form-control"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label
+                        for="novaSenha"
+                        class="form-label"
+                    >
+                        Nova senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="novaSenha"
+                        name="nova_senha"
+                        class="form-control"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <small class="form-text">
+                        Use pelo menos 8 caracteres.
+                    </small>
+                </div>
+
+                <div class="mb-4">
+                    <label
+                        for="confirmacaoSenha"
+                        class="form-label"
+                    >
+                        Confirmar nova senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmacaoSenha"
+                        name="confirmacao_senha"
+                        class="form-control"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-copa w-100"
+                >
+                    Salvar nova senha
+                </button>
+            </form>
+
+            <a
+                href="{{ url_for(
+                    'meus_palpites'
+                ) }}"
+                class="login-back-link"
+            >
+                Voltar para meus palpites
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,3560 @@
+{
+    "participantes": [
+        {
+            "id": 1,
+            "nome": "Gabriel",
+            "apelido": "Edmundo",
+            "ativo": true
+        },
+        {
+            "id": 2,
+            "nome": "Luiz",
+            "apelido": "Braz",
+            "ativo": true
+        },
+        {
+            "id": 3,
+            "nome": "Dud",
+            "ativo": true,
+            "apelidos": [
+                "DudsFonRX",
+                "Araguari"
+            ]
+        },
+        {
+            "id": 4,
+            "nome": "Davi",
+            "ativo": true,
+            "apelidos": [
+                "Tijolinho",
+                "Tijol"
+            ]
+        },
+        {
+            "id": 5,
+            "nome": "Dudu",
+            "ativo": true,
+            "apelidos": [
+                "et bilu"
+            ]
+        },
+        {
+            "id": 6,
+            "nome": "Jaré",
+            "apelido": "Jaré",
+            "ativo": true
+        },
+        {
+            "id": 7,
+            "nome": "Victor",
+            "ativo": true,
+            "apelidos": [
+                "Vidro",
+                "Vitu"
+            ]
+        },
+        {
+            "id": 8,
+            "nome": "Machado",
+            "apelido": "Machado",
+            "ativo": true
+        },
+        {
+            "id": 9,
+            "nome": "Cadu",
+            "ativo": true,
+            "apelidos": [
+                "Kdu"
+            ]
+        },
+        {
+            "id": 10,
+            "nome": "Benante",
+            "ativo": true,
+            "apelidos": [
+                "Benas",
+                "Bena"
+            ]
+        },
+        {
+            "id": 11,
+            "nome": "Tuts",
+            "apelido": "Tuts",
+            "ativo": true
+        },
+        {
+            "id": 12,
+            "nome": "Vinicius",
+            "ativo": true,
+            "apelidos": [
+                "Benicio",
+                "Benicios"
+            ]
+        },
+        {
+            "id": 15,
+            "nome": "Tio vlad",
+            "apelidos": [],
+            "ativo": true
+        },
+        {
+            "id": 16,
+            "nome": "Paulo",
+            "apelidos": [],
+            "ativo": true
+        },
+        {
+            "id": 17,
+            "nome": "Murilo",
+            "apelidos": [],
+            "ativo": true
+        }
+    ],
+    "jogos": [
+        {
+            "id": 1,
+            "codigo": "J01",
+            "rodada": 1,
+            "time_casa": "México",
+            "time_visitante": "África do Sul",
+            "data_hora": "2026-06-11T14:31",
+            "gols_casa": 2,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 2,
+            "codigo": "J02",
+            "rodada": 1,
+            "time_casa": "Coreia do Sul",
+            "time_visitante": "República Tcheca",
+            "data_hora": "2026-06-11T14:32",
+            "gols_casa": 2,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 3,
+            "codigo": "J03",
+            "rodada": 1,
+            "time_casa": "Canadá",
+            "time_visitante": "Bósnia",
+            "data_hora": "2026-06-12T14:32",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 4,
+            "codigo": "J04",
+            "rodada": 1,
+            "time_casa": "Paraguai",
+            "time_visitante": "EUA",
+            "data_hora": "2026-06-12T14:32",
+            "gols_casa": 1,
+            "gols_visitante": 4,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 5,
+            "codigo": "J05",
+            "rodada": 1,
+            "time_casa": "Suiça",
+            "time_visitante": "Catar",
+            "data_hora": "2026-06-13T14:33",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 6,
+            "codigo": "J06",
+            "rodada": 1,
+            "time_casa": "Brasil",
+            "time_visitante": "Marrocos",
+            "data_hora": "2026-06-13T14:33",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 7,
+            "codigo": "J07",
+            "rodada": 1,
+            "time_casa": "Escócia",
+            "time_visitante": "Haiti",
+            "data_hora": "2026-06-13T14:33",
+            "gols_casa": 1,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 8,
+            "codigo": "J08",
+            "rodada": 1,
+            "time_casa": "Turquia",
+            "time_visitante": "Austrália",
+            "data_hora": "2026-06-13T14:33",
+            "gols_casa": 0,
+            "gols_visitante": 2,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 9,
+            "codigo": "J09",
+            "rodada": 1,
+            "time_casa": "Alemanha",
+            "time_visitante": "Curaçao",
+            "data_hora": "2026-06-14T14:33",
+            "gols_casa": 7,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 10,
+            "codigo": "J10",
+            "rodada": 1,
+            "time_casa": "Japão",
+            "time_visitante": "Holanda",
+            "data_hora": "2026-06-14T14:34",
+            "gols_casa": 2,
+            "gols_visitante": 2,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 11,
+            "codigo": "J11",
+            "rodada": 1,
+            "time_casa": "Costa do Marfim",
+            "time_visitante": "Equador",
+            "data_hora": "2026-06-14T14:34",
+            "gols_casa": 1,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 12,
+            "codigo": "J12",
+            "rodada": 1,
+            "time_casa": "Tunísia",
+            "time_visitante": "Suécia",
+            "data_hora": "2026-06-14T14:34",
+            "gols_casa": 1,
+            "gols_visitante": 5,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 13,
+            "codigo": "J13",
+            "rodada": 1,
+            "time_casa": "Espanha",
+            "time_visitante": "Cabo Verde",
+            "data_hora": "2026-06-15T14:34",
+            "gols_casa": 0,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 14,
+            "codigo": "J14",
+            "rodada": 1,
+            "time_casa": "Bélgica",
+            "time_visitante": "Egito",
+            "data_hora": "2026-06-15T14:35",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 15,
+            "codigo": "J15",
+            "rodada": 1,
+            "time_casa": "Uruguai",
+            "time_visitante": "Arábia Saudita",
+            "data_hora": "2026-06-15T14:35",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 16,
+            "codigo": "J16",
+            "rodada": 1,
+            "time_casa": "Irã",
+            "time_visitante": "Nova Zelândia",
+            "data_hora": "2026-06-15T14:35",
+            "gols_casa": 2,
+            "gols_visitante": 2,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 17,
+            "codigo": "J17",
+            "rodada": 1,
+            "time_casa": "França",
+            "time_visitante": "Senegal",
+            "data_hora": "2026-06-16T14:36",
+            "gols_casa": 3,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 18,
+            "codigo": "J18",
+            "rodada": 1,
+            "time_casa": "Iraque",
+            "time_visitante": "Noruega",
+            "data_hora": "2026-06-16T14:36",
+            "gols_casa": 1,
+            "gols_visitante": 4,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 19,
+            "codigo": "J19",
+            "rodada": 1,
+            "time_casa": "Argélia",
+            "time_visitante": "Argentina",
+            "data_hora": "2026-06-16T14:36",
+            "gols_casa": 0,
+            "gols_visitante": 3,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 20,
+            "codigo": "J20",
+            "rodada": 1,
+            "time_casa": "Áustria",
+            "time_visitante": "Jordânia",
+            "data_hora": "2026-06-16T14:36",
+            "gols_casa": 3,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 21,
+            "codigo": "J21",
+            "rodada": 1,
+            "time_casa": "Portugal",
+            "time_visitante": "Congo",
+            "data_hora": "2026-06-17T14:36",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 22,
+            "codigo": "J22",
+            "rodada": 1,
+            "time_casa": "Inglaterra",
+            "time_visitante": "Croácia",
+            "data_hora": "2026-06-17T14:37",
+            "gols_casa": 4,
+            "gols_visitante": 2,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 23,
+            "codigo": "J23",
+            "rodada": 1,
+            "time_casa": "Gana",
+            "time_visitante": "Panamá",
+            "data_hora": "2026-06-17T14:37",
+            "gols_casa": 1,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 24,
+            "codigo": "J24",
+            "rodada": 1,
+            "time_casa": "Colômbia",
+            "time_visitante": "Uzbequistão",
+            "data_hora": "2026-06-17T14:37",
+            "gols_casa": 3,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 25,
+            "codigo": "J25",
+            "rodada": 1,
+            "time_casa": "República Tcheca",
+            "time_visitante": "África do Sul",
+            "data_hora": "2026-06-18T14:38",
+            "gols_casa": 1,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 26,
+            "codigo": "J26",
+            "rodada": 1,
+            "time_casa": "México",
+            "time_visitante": "Coreia do Sul",
+            "data_hora": "2026-06-18T14:38",
+            "gols_casa": 1,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 27,
+            "codigo": "J27",
+            "rodada": 1,
+            "time_casa": "Suíça",
+            "time_visitante": "Bósnia",
+            "data_hora": "2026-06-18T14:38",
+            "gols_casa": 4,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 28,
+            "codigo": "J28",
+            "rodada": 1,
+            "time_casa": "Canadá",
+            "time_visitante": "Catar",
+            "data_hora": "2026-06-18T14:38",
+            "gols_casa": 6,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 29,
+            "codigo": "J29",
+            "rodada": 1,
+            "time_casa": "EUA",
+            "time_visitante": "Austrália",
+            "data_hora": "2026-06-19T22:20",
+            "gols_casa": 2,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 30,
+            "codigo": "J30",
+            "rodada": 1,
+            "time_casa": "Escócia",
+            "time_visitante": "Marrocos",
+            "data_hora": "2026-06-19T22:20",
+            "gols_casa": 0,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 31,
+            "codigo": "J31",
+            "rodada": 1,
+            "time_casa": "Brasil",
+            "time_visitante": "Haiti",
+            "data_hora": "2026-06-19T22:21",
+            "gols_casa": 3,
+            "gols_visitante": 0,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 32,
+            "codigo": "J32",
+            "rodada": 1,
+            "time_casa": "Turquia",
+            "time_visitante": "Paraguai",
+            "data_hora": "2026-06-20T00:00",
+            "gols_casa": 0,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 33,
+            "codigo": "J33",
+            "rodada": 1,
+            "time_casa": "Holanda",
+            "time_visitante": "Suécia",
+            "data_hora": "2026-06-20T19:05",
+            "gols_casa": 5,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 34,
+            "codigo": "J34",
+            "rodada": 1,
+            "time_casa": "Alemanha",
+            "time_visitante": "Costa do Marfim",
+            "data_hora": "2026-06-20T19:06",
+            "gols_casa": 2,
+            "gols_visitante": 1,
+            "situacao": "FINALIZADO"
+        },
+        {
+            "id": 35,
+            "codigo": "J35",
+            "rodada": 1,
+            "time_casa": "Equador",
+            "time_visitante": "Curaçao",
+            "data_hora": "2026-06-20T19:06",
+            "gols_casa": null,
+            "gols_visitante": null,
+            "situacao": "ABERTO"
+        },
+        {
+            "id": 36,
+            "codigo": "J36",
+            "rodada": 1,
+            "time_casa": "Tunísia",
+            "time_visitante": "Japão",
+            "data_hora": "2026-06-21T01:06",
+            "gols_casa": null,
+            "gols_visitante": null,
+            "situacao": "ABERTO"
+        },
+        {
+            "id": 37,
+            "codigo": "J37",
+            "rodada": 1,
+            "time_casa": "Espanha",
+            "time_visitante": "Arábia Saudita",
+            "data_hora": "2026-06-21T19:07",
+            "gols_casa": null,
+            "gols_visitante": null,
+            "situacao": "ABERTO"
+        },
+        {
+            "id": 38,
+            "codigo": "J38",
+            "rodada": 1,
+            "time_casa": "Bélgica",
+            "time_visitante": "Irã",
+            "data_hora": "2026-06-21T19:07",
+            "gols_casa": null,
+            "gols_visitante": null,
+            "situacao": "ABERTO"
+        },
+        {
+            "id": 39,
+            "codigo": "J39",
+            "rodada": 1,
+            "time_casa": "Uruguai",
+            "time_visitante": "Cabo Verde",
+            "data_hora": "2026-06-21T19:07",
+            "gols_casa": null,
+            "gols_visitante": null,
+            "situacao": "ABERTO"
+        },
+        {
+            "id": 40,
+            "codigo": "J40",
+            "rodada": 1,
+            "time_casa": "Nova Zelândia",
+            "time_visitante": "Egito",
+            "data_hora": "2026-06-21T19:08",
+            "gols_casa": null,
+            "gols_visitante": null,
+            "situacao": "ABERTO"
+        }
+    ],
+    "palpites": [
+        {
+            "id": 1,
+            "participante_id": 1,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 2,
+            "participante_id": 1,
+            "jogo_id": 2,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 3,
+            "participante_id": 7,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 4,
+            "participante_id": 7,
+            "jogo_id": 2,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 5,
+            "participante_id": 2,
+            "jogo_id": 1,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 6,
+            "participante_id": 2,
+            "jogo_id": 2,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 7,
+            "participante_id": 3,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 8,
+            "participante_id": 3,
+            "jogo_id": 2,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 9,
+            "participante_id": 8,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 10,
+            "participante_id": 8,
+            "jogo_id": 2,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 11,
+            "participante_id": 4,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 12,
+            "participante_id": 4,
+            "jogo_id": 2,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 13,
+            "participante_id": 11,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 14,
+            "participante_id": 11,
+            "jogo_id": 2,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 15,
+            "participante_id": 10,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 16,
+            "participante_id": 10,
+            "jogo_id": 2,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 17,
+            "participante_id": 6,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 18,
+            "participante_id": 6,
+            "jogo_id": 2,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 19,
+            "participante_id": 12,
+            "jogo_id": 1,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 20,
+            "participante_id": 12,
+            "jogo_id": 2,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 21,
+            "participante_id": 9,
+            "jogo_id": 1,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 22,
+            "participante_id": 5,
+            "jogo_id": 1,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 23,
+            "participante_id": 5,
+            "jogo_id": 2,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 24,
+            "participante_id": 1,
+            "jogo_id": 3,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 25,
+            "participante_id": 1,
+            "jogo_id": 4,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 26,
+            "participante_id": 2,
+            "jogo_id": 3,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 27,
+            "participante_id": 2,
+            "jogo_id": 4,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 28,
+            "participante_id": 3,
+            "jogo_id": 3,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 29,
+            "participante_id": 3,
+            "jogo_id": 4,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 30,
+            "participante_id": 5,
+            "jogo_id": 4,
+            "gols_casa": 0,
+            "gols_visitante": 0
+        },
+        {
+            "id": 31,
+            "participante_id": 4,
+            "jogo_id": 3,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 32,
+            "participante_id": 4,
+            "jogo_id": 4,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 33,
+            "participante_id": 6,
+            "jogo_id": 3,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 34,
+            "participante_id": 6,
+            "jogo_id": 4,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 35,
+            "participante_id": 8,
+            "jogo_id": 3,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 36,
+            "participante_id": 8,
+            "jogo_id": 4,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 37,
+            "participante_id": 9,
+            "jogo_id": 3,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 38,
+            "participante_id": 9,
+            "jogo_id": 4,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 39,
+            "participante_id": 10,
+            "jogo_id": 3,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 40,
+            "participante_id": 10,
+            "jogo_id": 4,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 41,
+            "participante_id": 15,
+            "jogo_id": 3,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 42,
+            "participante_id": 15,
+            "jogo_id": 4,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 43,
+            "participante_id": 12,
+            "jogo_id": 3,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 44,
+            "participante_id": 12,
+            "jogo_id": 4,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 45,
+            "participante_id": 11,
+            "jogo_id": 3,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 46,
+            "participante_id": 11,
+            "jogo_id": 4,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 47,
+            "participante_id": 7,
+            "jogo_id": 3,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 48,
+            "participante_id": 7,
+            "jogo_id": 4,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 49,
+            "participante_id": 5,
+            "jogo_id": 3,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 50,
+            "participante_id": 5,
+            "jogo_id": 5,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 51,
+            "participante_id": 5,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 52,
+            "participante_id": 5,
+            "jogo_id": 7,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 53,
+            "participante_id": 6,
+            "jogo_id": 5,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 54,
+            "participante_id": 6,
+            "jogo_id": 6,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 55,
+            "participante_id": 6,
+            "jogo_id": 7,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 59,
+            "participante_id": 11,
+            "jogo_id": 5,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 60,
+            "participante_id": 11,
+            "jogo_id": 6,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 61,
+            "participante_id": 11,
+            "jogo_id": 7,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 62,
+            "participante_id": 4,
+            "jogo_id": 5,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 63,
+            "participante_id": 4,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 64,
+            "participante_id": 4,
+            "jogo_id": 7,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 65,
+            "participante_id": 1,
+            "jogo_id": 5,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 66,
+            "participante_id": 1,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 67,
+            "participante_id": 1,
+            "jogo_id": 7,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 68,
+            "participante_id": 7,
+            "jogo_id": 5,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 69,
+            "participante_id": 7,
+            "jogo_id": 6,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 70,
+            "participante_id": 7,
+            "jogo_id": 7,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 71,
+            "participante_id": 2,
+            "jogo_id": 5,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 72,
+            "participante_id": 2,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 73,
+            "participante_id": 2,
+            "jogo_id": 7,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 74,
+            "participante_id": 8,
+            "jogo_id": 5,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 75,
+            "participante_id": 8,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 76,
+            "participante_id": 8,
+            "jogo_id": 7,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 77,
+            "participante_id": 9,
+            "jogo_id": 5,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 78,
+            "participante_id": 9,
+            "jogo_id": 6,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 79,
+            "participante_id": 9,
+            "jogo_id": 7,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 80,
+            "participante_id": 12,
+            "jogo_id": 5,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 81,
+            "participante_id": 12,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 82,
+            "participante_id": 12,
+            "jogo_id": 7,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 83,
+            "participante_id": 10,
+            "jogo_id": 5,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 84,
+            "participante_id": 10,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 85,
+            "participante_id": 10,
+            "jogo_id": 7,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 86,
+            "participante_id": 5,
+            "jogo_id": 8,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 87,
+            "participante_id": 6,
+            "jogo_id": 8,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 88,
+            "participante_id": 3,
+            "jogo_id": 5,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 89,
+            "participante_id": 3,
+            "jogo_id": 6,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 90,
+            "participante_id": 3,
+            "jogo_id": 7,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 91,
+            "participante_id": 3,
+            "jogo_id": 8,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 92,
+            "participante_id": 11,
+            "jogo_id": 8,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 93,
+            "participante_id": 4,
+            "jogo_id": 8,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 94,
+            "participante_id": 1,
+            "jogo_id": 8,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 95,
+            "participante_id": 7,
+            "jogo_id": 8,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 96,
+            "participante_id": 2,
+            "jogo_id": 8,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 97,
+            "participante_id": 8,
+            "jogo_id": 8,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 98,
+            "participante_id": 9,
+            "jogo_id": 8,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 99,
+            "participante_id": 12,
+            "jogo_id": 8,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 100,
+            "participante_id": 10,
+            "jogo_id": 8,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 101,
+            "participante_id": 1,
+            "jogo_id": 9,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 102,
+            "participante_id": 1,
+            "jogo_id": 10,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 103,
+            "participante_id": 1,
+            "jogo_id": 11,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 104,
+            "participante_id": 1,
+            "jogo_id": 12,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 105,
+            "participante_id": 3,
+            "jogo_id": 9,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 106,
+            "participante_id": 3,
+            "jogo_id": 10,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 107,
+            "participante_id": 3,
+            "jogo_id": 11,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 108,
+            "participante_id": 3,
+            "jogo_id": 12,
+            "gols_casa": 0,
+            "gols_visitante": 0
+        },
+        {
+            "id": 109,
+            "participante_id": 5,
+            "jogo_id": 9,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 110,
+            "participante_id": 5,
+            "jogo_id": 10,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 111,
+            "participante_id": 5,
+            "jogo_id": 11,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 112,
+            "participante_id": 5,
+            "jogo_id": 12,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 113,
+            "participante_id": 4,
+            "jogo_id": 9,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 114,
+            "participante_id": 4,
+            "jogo_id": 10,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 115,
+            "participante_id": 4,
+            "jogo_id": 11,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 116,
+            "participante_id": 4,
+            "jogo_id": 12,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 117,
+            "participante_id": 7,
+            "jogo_id": 9,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 118,
+            "participante_id": 7,
+            "jogo_id": 10,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 119,
+            "participante_id": 7,
+            "jogo_id": 11,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 120,
+            "participante_id": 7,
+            "jogo_id": 12,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 121,
+            "participante_id": 2,
+            "jogo_id": 9,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 122,
+            "participante_id": 2,
+            "jogo_id": 10,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 123,
+            "participante_id": 2,
+            "jogo_id": 11,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 124,
+            "participante_id": 2,
+            "jogo_id": 12,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 125,
+            "participante_id": 6,
+            "jogo_id": 9,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 126,
+            "participante_id": 6,
+            "jogo_id": 10,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 127,
+            "participante_id": 6,
+            "jogo_id": 11,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 128,
+            "participante_id": 6,
+            "jogo_id": 12,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 129,
+            "participante_id": 12,
+            "jogo_id": 9,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 130,
+            "participante_id": 12,
+            "jogo_id": 10,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 131,
+            "participante_id": 12,
+            "jogo_id": 11,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 132,
+            "participante_id": 12,
+            "jogo_id": 12,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 133,
+            "participante_id": 9,
+            "jogo_id": 9,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 134,
+            "participante_id": 9,
+            "jogo_id": 10,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 135,
+            "participante_id": 9,
+            "jogo_id": 11,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 136,
+            "participante_id": 9,
+            "jogo_id": 12,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 137,
+            "participante_id": 11,
+            "jogo_id": 9,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 138,
+            "participante_id": 11,
+            "jogo_id": 10,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 139,
+            "participante_id": 11,
+            "jogo_id": 11,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 140,
+            "participante_id": 11,
+            "jogo_id": 12,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 141,
+            "participante_id": 2,
+            "jogo_id": 13,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 142,
+            "participante_id": 2,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 143,
+            "participante_id": 2,
+            "jogo_id": 15,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 144,
+            "participante_id": 2,
+            "jogo_id": 16,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 145,
+            "participante_id": 7,
+            "jogo_id": 13,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 146,
+            "participante_id": 7,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 147,
+            "participante_id": 7,
+            "jogo_id": 15,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 148,
+            "participante_id": 7,
+            "jogo_id": 16,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 149,
+            "participante_id": 3,
+            "jogo_id": 13,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 150,
+            "participante_id": 3,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 151,
+            "participante_id": 3,
+            "jogo_id": 15,
+            "gols_casa": 0,
+            "gols_visitante": 0
+        },
+        {
+            "id": 152,
+            "participante_id": 3,
+            "jogo_id": 16,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 153,
+            "participante_id": 1,
+            "jogo_id": 13,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 154,
+            "participante_id": 1,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 155,
+            "participante_id": 1,
+            "jogo_id": 15,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 156,
+            "participante_id": 1,
+            "jogo_id": 16,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 157,
+            "participante_id": 6,
+            "jogo_id": 13,
+            "gols_casa": 6,
+            "gols_visitante": 0
+        },
+        {
+            "id": 158,
+            "participante_id": 6,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 159,
+            "participante_id": 6,
+            "jogo_id": 15,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 160,
+            "participante_id": 6,
+            "jogo_id": 16,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 161,
+            "participante_id": 4,
+            "jogo_id": 13,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 162,
+            "participante_id": 4,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 163,
+            "participante_id": 4,
+            "jogo_id": 15,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 164,
+            "participante_id": 4,
+            "jogo_id": 16,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 165,
+            "participante_id": 8,
+            "jogo_id": 13,
+            "gols_casa": 6,
+            "gols_visitante": 0
+        },
+        {
+            "id": 166,
+            "participante_id": 8,
+            "jogo_id": 14,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 167,
+            "participante_id": 8,
+            "jogo_id": 15,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 168,
+            "participante_id": 8,
+            "jogo_id": 16,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 169,
+            "participante_id": 11,
+            "jogo_id": 13,
+            "gols_casa": 6,
+            "gols_visitante": 1
+        },
+        {
+            "id": 170,
+            "participante_id": 11,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 171,
+            "participante_id": 11,
+            "jogo_id": 15,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 172,
+            "participante_id": 11,
+            "jogo_id": 16,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 173,
+            "participante_id": 12,
+            "jogo_id": 13,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 174,
+            "participante_id": 12,
+            "jogo_id": 14,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 175,
+            "participante_id": 12,
+            "jogo_id": 15,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 176,
+            "participante_id": 12,
+            "jogo_id": 16,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 177,
+            "participante_id": 9,
+            "jogo_id": 13,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 178,
+            "participante_id": 9,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 179,
+            "participante_id": 9,
+            "jogo_id": 15,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 180,
+            "participante_id": 9,
+            "jogo_id": 16,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 181,
+            "participante_id": 5,
+            "jogo_id": 14,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 182,
+            "participante_id": 5,
+            "jogo_id": 15,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 183,
+            "participante_id": 5,
+            "jogo_id": 16,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 184,
+            "participante_id": 1,
+            "jogo_id": 17,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 185,
+            "participante_id": 1,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 186,
+            "participante_id": 1,
+            "jogo_id": 19,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 187,
+            "participante_id": 1,
+            "jogo_id": 20,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 188,
+            "participante_id": 3,
+            "jogo_id": 17,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 189,
+            "participante_id": 3,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 190,
+            "participante_id": 3,
+            "jogo_id": 19,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 191,
+            "participante_id": 3,
+            "jogo_id": 20,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 192,
+            "participante_id": 7,
+            "jogo_id": 17,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 193,
+            "participante_id": 7,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 194,
+            "participante_id": 7,
+            "jogo_id": 19,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 195,
+            "participante_id": 7,
+            "jogo_id": 20,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 196,
+            "participante_id": 11,
+            "jogo_id": 17,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 197,
+            "participante_id": 11,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 198,
+            "participante_id": 11,
+            "jogo_id": 19,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 199,
+            "participante_id": 11,
+            "jogo_id": 20,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 200,
+            "participante_id": 6,
+            "jogo_id": 17,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 201,
+            "participante_id": 6,
+            "jogo_id": 18,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 202,
+            "participante_id": 6,
+            "jogo_id": 19,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 203,
+            "participante_id": 6,
+            "jogo_id": 20,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 204,
+            "participante_id": 10,
+            "jogo_id": 17,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 205,
+            "participante_id": 10,
+            "jogo_id": 18,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 206,
+            "participante_id": 10,
+            "jogo_id": 19,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 207,
+            "participante_id": 10,
+            "jogo_id": 20,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 208,
+            "participante_id": 8,
+            "jogo_id": 17,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 209,
+            "participante_id": 8,
+            "jogo_id": 18,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 210,
+            "participante_id": 8,
+            "jogo_id": 19,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 211,
+            "participante_id": 8,
+            "jogo_id": 20,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 212,
+            "participante_id": 2,
+            "jogo_id": 17,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 213,
+            "participante_id": 2,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 214,
+            "participante_id": 2,
+            "jogo_id": 19,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 215,
+            "participante_id": 2,
+            "jogo_id": 20,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 216,
+            "participante_id": 5,
+            "jogo_id": 17,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 217,
+            "participante_id": 5,
+            "jogo_id": 18,
+            "gols_casa": 1,
+            "gols_visitante": 4
+        },
+        {
+            "id": 218,
+            "participante_id": 5,
+            "jogo_id": 19,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 219,
+            "participante_id": 5,
+            "jogo_id": 20,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 220,
+            "participante_id": 9,
+            "jogo_id": 17,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 221,
+            "participante_id": 9,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 222,
+            "participante_id": 9,
+            "jogo_id": 19,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 223,
+            "participante_id": 9,
+            "jogo_id": 20,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 224,
+            "participante_id": 12,
+            "jogo_id": 17,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 225,
+            "participante_id": 12,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 226,
+            "participante_id": 12,
+            "jogo_id": 19,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 227,
+            "participante_id": 12,
+            "jogo_id": 20,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 228,
+            "participante_id": 4,
+            "jogo_id": 17,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 229,
+            "participante_id": 4,
+            "jogo_id": 18,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 230,
+            "participante_id": 4,
+            "jogo_id": 19,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 231,
+            "participante_id": 4,
+            "jogo_id": 20,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 232,
+            "participante_id": 1,
+            "jogo_id": 21,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 233,
+            "participante_id": 1,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 234,
+            "participante_id": 1,
+            "jogo_id": 23,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 235,
+            "participante_id": 1,
+            "jogo_id": 24,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 236,
+            "participante_id": 8,
+            "jogo_id": 21,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 237,
+            "participante_id": 8,
+            "jogo_id": 22,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 238,
+            "participante_id": 8,
+            "jogo_id": 23,
+            "gols_casa": 4,
+            "gols_visitante": 2
+        },
+        {
+            "id": 239,
+            "participante_id": 8,
+            "jogo_id": 24,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 240,
+            "participante_id": 10,
+            "jogo_id": 21,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 241,
+            "participante_id": 10,
+            "jogo_id": 22,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 242,
+            "participante_id": 10,
+            "jogo_id": 23,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 243,
+            "participante_id": 10,
+            "jogo_id": 24,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 244,
+            "participante_id": 3,
+            "jogo_id": 21,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 245,
+            "participante_id": 3,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 246,
+            "participante_id": 3,
+            "jogo_id": 23,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 247,
+            "participante_id": 3,
+            "jogo_id": 24,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 248,
+            "participante_id": 2,
+            "jogo_id": 21,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 249,
+            "participante_id": 2,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 250,
+            "participante_id": 2,
+            "jogo_id": 23,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 251,
+            "participante_id": 2,
+            "jogo_id": 24,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 252,
+            "participante_id": 6,
+            "jogo_id": 21,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 253,
+            "participante_id": 6,
+            "jogo_id": 22,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 254,
+            "participante_id": 6,
+            "jogo_id": 23,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 255,
+            "participante_id": 6,
+            "jogo_id": 24,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 256,
+            "participante_id": 7,
+            "jogo_id": 21,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 257,
+            "participante_id": 7,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 258,
+            "participante_id": 7,
+            "jogo_id": 23,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 259,
+            "participante_id": 7,
+            "jogo_id": 24,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 260,
+            "participante_id": 5,
+            "jogo_id": 21,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 261,
+            "participante_id": 5,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 262,
+            "participante_id": 5,
+            "jogo_id": 23,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 263,
+            "participante_id": 5,
+            "jogo_id": 24,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 264,
+            "participante_id": 4,
+            "jogo_id": 21,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 265,
+            "participante_id": 4,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 266,
+            "participante_id": 4,
+            "jogo_id": 23,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 267,
+            "participante_id": 4,
+            "jogo_id": 24,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 268,
+            "participante_id": 9,
+            "jogo_id": 21,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 269,
+            "participante_id": 9,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 270,
+            "participante_id": 9,
+            "jogo_id": 23,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 271,
+            "participante_id": 9,
+            "jogo_id": 24,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 272,
+            "participante_id": 12,
+            "jogo_id": 21,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 273,
+            "participante_id": 12,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 274,
+            "participante_id": 12,
+            "jogo_id": 23,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 275,
+            "participante_id": 12,
+            "jogo_id": 24,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 276,
+            "participante_id": 11,
+            "jogo_id": 21,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 277,
+            "participante_id": 11,
+            "jogo_id": 22,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 278,
+            "participante_id": 11,
+            "jogo_id": 23,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 279,
+            "participante_id": 11,
+            "jogo_id": 24,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 280,
+            "participante_id": 1,
+            "jogo_id": 25,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 281,
+            "participante_id": 1,
+            "jogo_id": 26,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 282,
+            "participante_id": 1,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 283,
+            "participante_id": 1,
+            "jogo_id": 28,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 284,
+            "participante_id": 2,
+            "jogo_id": 25,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 285,
+            "participante_id": 2,
+            "jogo_id": 26,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 286,
+            "participante_id": 2,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 287,
+            "participante_id": 2,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 288,
+            "participante_id": 3,
+            "jogo_id": 25,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 289,
+            "participante_id": 3,
+            "jogo_id": 26,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 290,
+            "participante_id": 3,
+            "jogo_id": 27,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 291,
+            "participante_id": 3,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 292,
+            "participante_id": 4,
+            "jogo_id": 25,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 293,
+            "participante_id": 4,
+            "jogo_id": 26,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 294,
+            "participante_id": 4,
+            "jogo_id": 27,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 295,
+            "participante_id": 4,
+            "jogo_id": 28,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 296,
+            "participante_id": 5,
+            "jogo_id": 25,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 297,
+            "participante_id": 5,
+            "jogo_id": 26,
+            "gols_casa": 3,
+            "gols_visitante": 2
+        },
+        {
+            "id": 298,
+            "participante_id": 5,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 299,
+            "participante_id": 5,
+            "jogo_id": 28,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 300,
+            "participante_id": 6,
+            "jogo_id": 25,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 301,
+            "participante_id": 6,
+            "jogo_id": 26,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 302,
+            "participante_id": 6,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 303,
+            "participante_id": 6,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 304,
+            "participante_id": 7,
+            "jogo_id": 25,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 305,
+            "participante_id": 7,
+            "jogo_id": 26,
+            "gols_casa": 3,
+            "gols_visitante": 2
+        },
+        {
+            "id": 306,
+            "participante_id": 7,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 307,
+            "participante_id": 7,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 308,
+            "participante_id": 8,
+            "jogo_id": 25,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 309,
+            "participante_id": 8,
+            "jogo_id": 26,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 310,
+            "participante_id": 8,
+            "jogo_id": 27,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 311,
+            "participante_id": 8,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 312,
+            "participante_id": 9,
+            "jogo_id": 25,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 313,
+            "participante_id": 9,
+            "jogo_id": 26,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 314,
+            "participante_id": 9,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 315,
+            "participante_id": 9,
+            "jogo_id": 28,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 316,
+            "participante_id": 10,
+            "jogo_id": 25,
+            "gols_casa": 0,
+            "gols_visitante": 0
+        },
+        {
+            "id": 317,
+            "participante_id": 10,
+            "jogo_id": 26,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 318,
+            "participante_id": 10,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 319,
+            "participante_id": 10,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 320,
+            "participante_id": 11,
+            "jogo_id": 25,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 321,
+            "participante_id": 11,
+            "jogo_id": 26,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 322,
+            "participante_id": 11,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 323,
+            "participante_id": 11,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 324,
+            "participante_id": 12,
+            "jogo_id": 26,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 325,
+            "participante_id": 12,
+            "jogo_id": 27,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 326,
+            "participante_id": 12,
+            "jogo_id": 28,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 327,
+            "participante_id": 15,
+            "jogo_id": 26,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 328,
+            "participante_id": 1,
+            "jogo_id": 29,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 329,
+            "participante_id": 1,
+            "jogo_id": 31,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 330,
+            "participante_id": 1,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 331,
+            "participante_id": 16,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 332,
+            "participante_id": 16,
+            "jogo_id": 31,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 333,
+            "participante_id": 16,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 334,
+            "participante_id": 2,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 335,
+            "participante_id": 2,
+            "jogo_id": 31,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 336,
+            "participante_id": 2,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 337,
+            "participante_id": 7,
+            "jogo_id": 29,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 338,
+            "participante_id": 7,
+            "jogo_id": 31,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 339,
+            "participante_id": 7,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 340,
+            "participante_id": 10,
+            "jogo_id": 29,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 341,
+            "participante_id": 10,
+            "jogo_id": 31,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 342,
+            "participante_id": 10,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 343,
+            "participante_id": 11,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 2
+        },
+        {
+            "id": 344,
+            "participante_id": 11,
+            "jogo_id": 31,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 345,
+            "participante_id": 11,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 346,
+            "participante_id": 12,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 347,
+            "participante_id": 12,
+            "jogo_id": 31,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 348,
+            "participante_id": 12,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 349,
+            "participante_id": 4,
+            "jogo_id": 29,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 350,
+            "participante_id": 4,
+            "jogo_id": 31,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 351,
+            "participante_id": 4,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 352,
+            "participante_id": 17,
+            "jogo_id": 29,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 353,
+            "participante_id": 17,
+            "jogo_id": 31,
+            "gols_casa": 11,
+            "gols_visitante": 0
+        },
+        {
+            "id": 354,
+            "participante_id": 17,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 355,
+            "participante_id": 3,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 356,
+            "participante_id": 3,
+            "jogo_id": 31,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 357,
+            "participante_id": 3,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 0
+        },
+        {
+            "id": 358,
+            "participante_id": 5,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 359,
+            "participante_id": 5,
+            "jogo_id": 31,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 360,
+            "participante_id": 5,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 361,
+            "participante_id": 9,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 362,
+            "participante_id": 9,
+            "jogo_id": 31,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 363,
+            "participante_id": 9,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 364,
+            "participante_id": 8,
+            "jogo_id": 29,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 365,
+            "participante_id": 8,
+            "jogo_id": 31,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 366,
+            "participante_id": 8,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 367,
+            "participante_id": 6,
+            "jogo_id": 29,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 368,
+            "participante_id": 6,
+            "jogo_id": 31,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 369,
+            "participante_id": 6,
+            "jogo_id": 30,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 370,
+            "participante_id": 1,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 371,
+            "participante_id": 16,
+            "jogo_id": 32,
+            "gols_casa": 0,
+            "gols_visitante": 1
+        },
+        {
+            "id": 372,
+            "participante_id": 2,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 373,
+            "participante_id": 7,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 374,
+            "participante_id": 10,
+            "jogo_id": 32,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 375,
+            "participante_id": 11,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 376,
+            "participante_id": 12,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 377,
+            "participante_id": 4,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 378,
+            "participante_id": 17,
+            "jogo_id": 32,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 379,
+            "participante_id": 3,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 380,
+            "participante_id": 5,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 381,
+            "participante_id": 9,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 382,
+            "participante_id": 8,
+            "jogo_id": 32,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 383,
+            "participante_id": 6,
+            "jogo_id": 32,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 384,
+            "participante_id": 15,
+            "jogo_id": 30,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 385,
+            "participante_id": 15,
+            "jogo_id": 31,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 386,
+            "participante_id": 15,
+            "jogo_id": 32,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 387,
+            "participante_id": 5,
+            "jogo_id": 33,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 388,
+            "participante_id": 5,
+            "jogo_id": 34,
+            "gols_casa": 2,
+            "gols_visitante": 2
+        },
+        {
+            "id": 389,
+            "participante_id": 5,
+            "jogo_id": 35,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 390,
+            "participante_id": 5,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 391,
+            "participante_id": 3,
+            "jogo_id": 33,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 392,
+            "participante_id": 3,
+            "jogo_id": 34,
+            "gols_casa": 1,
+            "gols_visitante": 1
+        },
+        {
+            "id": 393,
+            "participante_id": 3,
+            "jogo_id": 35,
+            "gols_casa": 5,
+            "gols_visitante": 0
+        },
+        {
+            "id": 394,
+            "participante_id": 3,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 395,
+            "participante_id": 16,
+            "jogo_id": 33,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 396,
+            "participante_id": 16,
+            "jogo_id": 34,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 397,
+            "participante_id": 16,
+            "jogo_id": 35,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 398,
+            "participante_id": 16,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 5
+        },
+        {
+            "id": 399,
+            "participante_id": 6,
+            "jogo_id": 33,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 400,
+            "participante_id": 6,
+            "jogo_id": 34,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 401,
+            "participante_id": 6,
+            "jogo_id": 35,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 402,
+            "participante_id": 6,
+            "jogo_id": 36,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 403,
+            "participante_id": 2,
+            "jogo_id": 33,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 404,
+            "participante_id": 2,
+            "jogo_id": 34,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 405,
+            "participante_id": 2,
+            "jogo_id": 35,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 406,
+            "participante_id": 2,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 407,
+            "participante_id": 8,
+            "jogo_id": 33,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 408,
+            "participante_id": 8,
+            "jogo_id": 34,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 409,
+            "participante_id": 8,
+            "jogo_id": 35,
+            "gols_casa": 2,
+            "gols_visitante": 1
+        },
+        {
+            "id": 410,
+            "participante_id": 8,
+            "jogo_id": 36,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 411,
+            "participante_id": 1,
+            "jogo_id": 33,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 412,
+            "participante_id": 1,
+            "jogo_id": 34,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 413,
+            "participante_id": 1,
+            "jogo_id": 35,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 414,
+            "participante_id": 1,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 415,
+            "participante_id": 4,
+            "jogo_id": 33,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 416,
+            "participante_id": 4,
+            "jogo_id": 34,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 417,
+            "participante_id": 4,
+            "jogo_id": 35,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 418,
+            "participante_id": 4,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 4
+        },
+        {
+            "id": 419,
+            "participante_id": 7,
+            "jogo_id": 34,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 420,
+            "participante_id": 7,
+            "jogo_id": 35,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 421,
+            "participante_id": 7,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        },
+        {
+            "id": 422,
+            "participante_id": 12,
+            "jogo_id": 34,
+            "gols_casa": 3,
+            "gols_visitante": 1
+        },
+        {
+            "id": 423,
+            "participante_id": 12,
+            "jogo_id": 35,
+            "gols_casa": 3,
+            "gols_visitante": 0
+        },
+        {
+            "id": 424,
+            "participante_id": 12,
+            "jogo_id": 36,
+            "gols_casa": 1,
+            "gols_visitante": 2
+        },
+        {
+            "id": 425,
+            "participante_id": 11,
+            "jogo_id": 34,
+            "gols_casa": 4,
+            "gols_visitante": 1
+        },
+        {
+            "id": 426,
+            "participante_id": 11,
+            "jogo_id": 35,
+            "gols_casa": 2,
+            "gols_visitante": 0
+        },
+        {
+            "id": 427,
+            "participante_id": 11,
+            "jogo_id": 36,
+            "gols_casa": 1,
+            "gols_visitante": 3
+        },
+        {
+            "id": 428,
+            "participante_id": 9,
+            "jogo_id": 34,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 429,
+            "participante_id": 9,
+            "jogo_id": 35,
+            "gols_casa": 1,
+            "gols_visitante": 0
+        },
+        {
+            "id": 430,
+            "participante_id": 9,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 3
+        },
+        {
+            "id": 431,
+            "participante_id": 17,
+            "jogo_id": 35,
+            "gols_casa": 4,
+            "gols_visitante": 0
+        },
+        {
+            "id": 432,
+            "participante_id": 17,
+            "jogo_id": 36,
+            "gols_casa": 0,
+            "gols_visitante": 2
+        }
+    ]
+}

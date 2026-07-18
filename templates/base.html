@@ -23,7 +23,15 @@
     >
 </head>
 
-<body class="{% if admin_logado %}admin-mode{% else %}public-mode{% endif %}">
+<body class="
+    {% if admin_logado %}
+        admin-mode
+    {% elif participante_logado %}
+        participant-mode
+    {% else %}
+        public-mode
+    {% endif %}
+">
     <nav class="navbar navbar-expand-lg copa-navbar">
         <div class="container">
             <a
@@ -71,7 +79,8 @@
                             'listar_participantes',
                             'perfil_participante',
                             'adicionar_participante',
-                            'atualizar_apelidos'
+                            'atualizar_apelidos',
+                            'gerenciar_acesso_participante'
                         ] %}
                             active
                         {% endif %}"
@@ -118,14 +127,60 @@
                         Ranking
                     </a>
 
-                    {% if admin_logado %}
-                        <span class="navbar-text admin-session-label">
-                            {{ admin_usuario }}
+                    {% if participante_logado %}
+                        <a
+                            class="nav-link user-predictions-link
+                            {% if request.endpoint in [
+                                'meus_palpites',
+                                'salvar_meus_palpites'
+                            ] %}
+                                active
+                            {% endif %}"
+                            href="{{ url_for('meus_palpites') }}"
+                        >
+                            Meus palpites
+                        </a>
+
+                        <a
+                            class="nav-link account-password-link
+                            {% if request.endpoint == 'auth.alterar_senha' %}
+                                active
+                            {% endif %}"
+                            href="{{ url_for('auth.alterar_senha') }}"
+                        >
+                            Alterar senha
+                        </a>
+
+                        <span class="navbar-text participant-session-label">
+                            {{ participante_logado_nome }}
                         </span>
 
                         <form
                             method="POST"
-                            action="{{ url_for('auth.logout') }}"
+                            action="{{ url_for('auth.logout_usuario') }}"
+                            class="navbar-logout-form"
+                        >
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                value="{{ csrf_token() }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="btn btn-sm btn-outline-copa"
+                            >
+                                Sair
+                            </button>
+                        </form>
+                    {% elif admin_logado %}
+                        <span class="navbar-text admin-session-label">
+                            Admin · {{ admin_usuario }}
+                        </span>
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('auth.logout_admin') }}"
                             class="navbar-logout-form"
                         >
                             <input
@@ -144,12 +199,22 @@
                     {% else %}
                         <a
                             class="nav-link
-                            {% if request.endpoint == 'auth.login' %}
+                            {% if request.endpoint == 'auth.login_usuario' %}
                                 active
                             {% endif %}"
-                            href="{{ url_for('auth.login') }}"
+                            href="{{ url_for('auth.login_usuario') }}"
                         >
-                            Administração
+                            Entrar
+                        </a>
+
+                        <a
+                            class="nav-link admin-small-link
+                            {% if request.endpoint == 'auth.login_admin' %}
+                                active
+                            {% endif %}"
+                            href="{{ url_for('auth.login_admin') }}"
+                        >
+                            Admin
                         </a>
                     {% endif %}
                 </div>

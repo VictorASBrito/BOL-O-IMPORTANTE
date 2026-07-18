@@ -2208,3 +2208,673 @@ input[type="datetime-local"] {
         padding-left: 12px;
     }
 }
+
+/* =========================================================
+   Login e área dos participantes
+   ========================================================= */
+
+.participant-session-label {
+    margin-left: 12px;
+    color: var(--copa-blue-light);
+    font-size: 0.76rem;
+    font-weight: 850;
+    text-transform: uppercase;
+}
+
+.user-predictions-link {
+    color: var(--copa-gold) !important;
+    font-weight: 850;
+}
+
+.admin-small-link {
+    color: var(--copa-muted) !important;
+    font-size: 0.78rem;
+}
+
+.participant-login-card {
+    border-color: rgba(49, 130, 246, 0.34);
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(49, 130, 246, 0.14),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(13, 28, 54, 0.98),
+            rgba(8, 21, 43, 0.98)
+        );
+}
+
+.login-help {
+    margin-top: 18px;
+    padding: 12px 14px;
+    color: var(--copa-muted);
+    border: 1px solid var(--copa-border);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.025);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.participant-predictions-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    margin-bottom: 18px;
+    padding: 22px 24px;
+    border: 1px solid rgba(49, 130, 246, 0.28);
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(49, 130, 246, 0.12),
+            rgba(13, 28, 54, 0.94)
+        );
+}
+
+.participant-predictions-cta h2 {
+    margin: 4px 0 5px;
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.participant-predictions-cta p {
+    margin: 0;
+    color: var(--copa-muted);
+}
+
+.prediction-privacy-note,
+.participant-security-note {
+    margin-bottom: 22px;
+    padding: 13px 16px;
+    color: #a9c9f6;
+    border: 1px solid rgba(49, 130, 246, 0.22);
+    border-radius: 12px;
+    background: rgba(49, 130, 246, 0.07);
+    font-size: 0.84rem;
+}
+
+.hidden-prediction-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    color: var(--copa-muted);
+    border: 1px solid var(--copa-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
+    font-size: 0.72rem;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   Gerenciamento de acessos
+   ========================================================= */
+
+.access-management-card {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.access-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--copa-border);
+}
+
+.access-status-row h2 {
+    margin: 4px 0 0;
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+
+.access-toggle-box {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 11px;
+    padding: 11px 13px;
+    border: 1px solid var(--copa-border);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.access-toggle-box label {
+    margin: 0;
+    color: var(--copa-text);
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+.access-divider {
+    margin: 28px 0 20px;
+    border-color: var(--copa-border);
+}
+
+
+/* =========================================================
+   Meus palpites
+   ========================================================= */
+
+.participant-area-header {
+    border-color: rgba(49, 130, 246, 0.26);
+}
+
+.my-predictions-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.my-prediction-card {
+    overflow: hidden;
+    border: 1px solid var(--copa-border);
+    border-radius: 16px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13, 28, 54, 0.98),
+            rgba(8, 21, 43, 0.98)
+        );
+}
+
+.my-prediction-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 13px 15px;
+    border-bottom: 1px solid var(--copa-border);
+}
+
+.my-prediction-scoreline {
+    display: grid;
+    grid-template-columns:
+        minmax(90px, 1fr)
+        55px
+        20px
+        55px
+        minmax(90px, 1fr);
+    align-items: center;
+    gap: 8px;
+    padding: 21px 15px;
+}
+
+.my-prediction-team {
+    color: var(--copa-text);
+    font-weight: 850;
+}
+
+.my-prediction-team.home {
+    text-align: right;
+}
+
+.my-prediction-team.away {
+    text-align: left;
+}
+
+.my-prediction-input {
+    width: 55px;
+    min-height: 44px;
+    padding: 5px;
+    font-size: 1.05rem;
+    font-weight: 950;
+    text-align: center;
+}
+
+.my-prediction-x {
+    color: var(--copa-gold);
+    font-weight: 950;
+    text-align: center;
+}
+
+.my-prediction-date {
+    padding: 0 15px 14px;
+    color: var(--copa-muted);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+@media (max-width: 991px) {
+    .participant-session-label {
+        margin-top: 8px;
+        margin-left: 0;
+    }
+
+    .participant-predictions-cta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .my-predictions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575px) {
+    .participant-predictions-cta {
+        padding: 18px;
+    }
+
+    .access-status-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .my-prediction-scoreline {
+        grid-template-columns:
+            minmax(65px, 1fr)
+            48px
+            16px
+            48px
+            minmax(65px, 1fr);
+        gap: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .my-prediction-input {
+        width: 48px;
+    }
+
+    .my-prediction-team {
+        font-size: 0.84rem;
+    }
+}
+
+/* =========================================================
+   Participantes - organização definitiva da tabela
+   ========================================================= */
+
+.participants-card {
+    overflow: hidden;
+}
+
+.participants-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-color:
+        rgba(49, 130, 246, 0.45)
+        rgba(255, 255, 255, 0.03);
+    scrollbar-width: thin;
+}
+
+.participants-table-wrapper::-webkit-scrollbar {
+    height: 9px;
+}
+
+.participants-table-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.participants-table-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(49, 130, 246, 0.45);
+}
+
+.participants-table {
+    width: 100%;
+    min-width: 690px;
+    table-layout: fixed;
+}
+
+.admin-mode .participants-table {
+    min-width: 1080px;
+}
+
+.participants-table th,
+.participants-table td {
+    vertical-align: middle;
+}
+
+.admin-mode .participants-table .col-participant {
+    width: 17%;
+}
+
+.admin-mode .participants-table .col-aliases {
+    width: 17%;
+}
+
+.admin-mode .participants-table .col-status {
+    width: 8%;
+}
+
+.admin-mode .participants-table .col-access {
+    width: 18%;
+}
+
+.admin-mode .participants-table .col-edit {
+    width: 28%;
+}
+
+.admin-mode .participants-table .col-actions {
+    width: 12%;
+}
+
+.participants-table .col-public-participant {
+    width: 35%;
+}
+
+.participants-table .col-public-aliases {
+    width: 45%;
+}
+
+.participants-table .col-public-status {
+    width: 20%;
+}
+
+.participant-main-cell,
+.participant-aliases-cell,
+.participant-status-cell,
+.participant-access-cell,
+.participant-edit-cell,
+.participant-actions-cell {
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+}
+
+.participant-table-person {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+}
+
+.participant-table-person strong {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.participant-aliases-cell .aliases-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.participant-status-cell {
+    text-align: center;
+}
+
+.participant-access-box {
+    display: grid !important;
+    width: 100%;
+    min-width: 0;
+    gap: 10px;
+}
+
+.participant-access-summary {
+    display: flex !important;
+    min-width: 0;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 7px;
+}
+
+.access-username-line {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    gap: 7px;
+}
+
+.access-username-line small {
+    flex: 0 0 auto;
+    color: var(--copa-muted);
+    font-size: 0.68rem;
+    font-weight: 750;
+    text-transform: uppercase;
+}
+
+.access-username-line code {
+    min-width: 0;
+    overflow: hidden;
+    padding: 4px 7px;
+    color: #b9d8ff;
+    border: 1px solid rgba(49, 130, 246, 0.22);
+    border-radius: 7px;
+    background: rgba(49, 130, 246, 0.06);
+    font-size: 0.74rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.access-empty-text {
+    color: var(--copa-muted);
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+
+.participant-access-box > .btn {
+    width: 100%;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.participants-table .participant-alias-form {
+    display: grid !important;
+    width: 100%;
+    align-items: center;
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+    gap: 9px;
+}
+
+.participants-table .participant-alias-form .form-control {
+    width: 100%;
+    min-width: 0;
+}
+
+.participants-table .participant-alias-form .btn {
+    white-space: nowrap;
+}
+
+.participants-table .participant-row-actions {
+    display: grid !important;
+    width: 100%;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.participants-table .participant-row-actions > a,
+.participants-table .participant-row-actions > form,
+.participants-table .participant-row-actions button {
+    width: 100%;
+}
+
+.participants-table .participant-row-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.account-password-link {
+    color: var(--copa-muted) !important;
+    font-size: 0.8rem;
+}
+
+.password-change-card {
+    border-color: rgba(49, 130, 246, 0.28);
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(49, 130, 246, 0.12),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(13, 28, 54, 0.98),
+            rgba(8, 21, 43, 0.98)
+        );
+}
+
+@media (max-width: 1199px) {
+    .admin-mode .participants-table {
+        min-width: 1060px;
+    }
+}
+
+@media (max-width: 767px) {
+    .participants-table {
+        min-width: 650px;
+    }
+
+    .admin-mode .participants-table {
+        min-width: 1040px;
+    }
+
+    .participant-main-cell,
+    .participant-aliases-cell,
+    .participant-status-cell,
+    .participant-access-cell,
+    .participant-edit-cell,
+    .participant-actions-cell {
+        padding-right: 11px !important;
+        padding-left: 11px !important;
+    }
+}
+
+/* =========================================================
+   Mata-mata
+   ========================================================= */
+
+.match-type-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 25px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.match-type-badge.knockout {
+    color: #ffe486;
+    border: 1px solid rgba(242, 201, 76, 0.3);
+    background: rgba(242, 201, 76, 0.1);
+}
+
+.match-type-badge.league {
+    color: #9fc4f5;
+    border: 1px solid rgba(49, 130, 246, 0.26);
+    background: rgba(49, 130, 246, 0.07);
+}
+
+.knockout-match-card,
+.knockout-prediction-card {
+    border-color: rgba(242, 201, 76, 0.28) !important;
+    box-shadow:
+        0 0 0 1px rgba(242, 201, 76, 0.03),
+        0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.knockout-winner-box,
+.prediction-winner-box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 16px 16px;
+    padding: 12px 13px;
+    border: 1px solid rgba(242, 201, 76, 0.22);
+    border-radius: 13px;
+    background: rgba(242, 201, 76, 0.06);
+}
+
+.knockout-winner-title,
+.prediction-winner-box > span {
+    color: var(--copa-gold);
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.knockout-winner-box label,
+.prediction-winner-box label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    color: var(--copa-text);
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.knockout-winner-box input,
+.prediction-winner-box input {
+    accent-color: #f2c94c;
+}
+
+.manual-winner-box {
+    margin: 10px 0 0;
+}
+
+.classified-team-line {
+    margin: 0 16px 14px;
+    color: var(--copa-muted);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.classified-team-line.small {
+    margin: 6px 0 0;
+    font-size: 0.72rem;
+    text-align: left;
+}
+
+.classified-team-line strong {
+    color: var(--copa-gold);
+    font-weight: 900;
+}
+
+.my-prediction-top .match-type-badge,
+.manual-game-info .match-type-badge,
+.copa-table .match-type-badge {
+    margin-left: 6px;
+}
+
+@media (max-width: 575px) {
+    .knockout-winner-box,
+    .prediction-winner-box {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .classified-team-line {
+        text-align: left;
+    }
+}
+
+/* Aviso do formato de importação do mata-mata */
+.import-format-note {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    color: var(--copa-muted);
+    border: 1px solid rgba(49, 130, 246, 0.22);
+    border-radius: 12px;
+    background: rgba(49, 130, 246, 0.06);
+    font-size: 0.84rem;
+}
+
+.import-format-note strong {
+    color: var(--copa-gold);
+}

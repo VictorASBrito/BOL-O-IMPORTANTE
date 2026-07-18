@@ -15,20 +15,41 @@ from flask import (
 )
 from flask_wtf.csrf import CSRFError, CSRFProtect
 from werkzeug.middleware.proxy_fix import ProxyFix
+from werkzeug.security import generate_password_hash
 
-from auth import admin_required, auth_bp
+from auth import (
+    admin_esta_logado,
+    admin_required,
+    auth_bp,
+    participante_esta_logado,
+    usuario_required,
+)
+from services.acesso_service import (
+    AcessoInvalidoError,
+    UsuarioDuplicadoError,
+    obter_acesso_por_participante,
+    remover_acesso_participante,
+    salvar_acesso_participante,
+)
 from services.importacao_service import (
     importar_mensagem_whatsapp,
     normalizar_texto,
 )
 from services.json_service import (
     carregar_dados,
+    executar_transacao,
     gerar_proximo_id,
     salvar_dados,
 )
 from services.pontuacao_service import (
+    TIPO_JOGO_GRUPO,
+    TIPO_JOGO_MATA_MATA,
+    VENCEDOR_CASA,
+    VENCEDOR_VISITANTE,
     calcular_pontos,
+    jogo_e_mata_mata,
     montar_ranking,
+    pontuacao_placar_exato,
 )
 
 
@@ -89,10 +110,19 @@ app.register_blueprint(auth_bp)
 def disponibilizar_contexto_global() -> dict[str, Any]:
     return {
         "nome_site": app.config["NOME_SITE"],
-        "admin_logado": bool(
-            session.get("admin_logado", False)
+        "admin_logado": admin_esta_logado(),
+        "participante_logado": (
+            participante_esta_logado()
         ),
-        "admin_usuario": session.get("admin_usuario"),
+        "participante_logado_id": session.get(
+            "participante_id"
+        ),
+        "participante_logado_nome": session.get(
+            "participante_nome"
+        ),
+        "admin_usuario": session.get(
+            "admin_usuario"
+        ),
     }
 
 
@@ -166,6 +196,104 @@ def converter_inteiro_form(nome_campo: str) -> int | None:
         return None
 
     return int(valor)
+
+
+def tipo_jogo_form() -> str:
+    tipo = request.form.get(
+        "tipo_jogo",
+        TIPO_JOGO_GRUPO,
+    ).strip().upper()
+
+    if tipo == TIPO_JOGO_MATA_MATA:
+        return TIPO_JOGO_MATA_MATA
+
+    return TIPO_JOGO_GRUPO
+
+
+def vencedor_por_placar(
+    gols_casa: int,
+    gols_visitante: int,
+) -> str | None:
+    if gols_casa > gols_visitante:
+        return VENCEDOR_CASA
+
+    if gols_visitante > gols_casa:
+        return VENCEDOR_VISITANTE
+
+    return None
+
+
+def vencedor_form_valido() -> str | None:
+    vencedor = request.form.get(
+        "vencedor",
+        "",
+    ).strip().upper()
+
+    if vencedor in {
+        VENCEDOR_CASA,
+        VENCEDOR_VISITANTE,
+    }:
+        return vencedor
+
+    return None
+
+
+def vencedor_palpite_form(
+    jogo: dict,
+    gols_casa: int,
+    gols_visitante: int,
+) -> str | None:
+    if not jogo_e_mata_mata(jogo):
+        return None
+
+    vencedor_placar = vencedor_por_placar(
+        gols_casa,
+        gols_visitante,
+    )
+
+    if vencedor_placar:
+        return vencedor_placar
+
+    vencedor = request.form.get(
+        f"vencedor_{jogo['id']}",
+        "",
+    ).strip().upper()
+
+    if vencedor in {
+        VENCEDOR_CASA,
+        VENCEDOR_VISITANTE,
+    }:
+        return vencedor
+
+    return None
+
+
+def calcular_pontos_do_palpite(
+    palpite: dict,
+    jogo: dict,
+) -> int:
+    return calcular_pontos(
+        palpite["gols_casa"],
+        palpite["gols_visitante"],
+        jogo["gols_casa"],
+        jogo["gols_visitante"],
+        tipo_jogo=jogo.get("tipo_jogo"),
+        palpite_vencedor=palpite.get("vencedor"),
+        resultado_vencedor=jogo.get("vencedor"),
+    )
+
+
+def montar_vencedor_nome(
+    jogo: dict,
+    vencedor: str | None,
+) -> str | None:
+    if vencedor == VENCEDOR_CASA:
+        return jogo.get("time_casa")
+
+    if vencedor == VENCEDOR_VISITANTE:
+        return jogo.get("time_visitante")
+
+    return None
 
 
 def separar_apelidos(
@@ -309,6 +437,10 @@ def montar_contexto_palpites(
         for jogo in dados["jogos"]
     }
 
+    participante_sessao_id = session.get(
+        "participante_id"
+    )
+
     palpites_exibicao: list[dict] = []
 
     for palpite in dados["palpites"]:
@@ -316,21 +448,63 @@ def montar_contexto_palpites(
             palpite["participante_id"]
         )
 
-        jogo = jogos_por_id.get(palpite["jogo_id"])
+        jogo = jogos_por_id.get(
+            palpite["jogo_id"]
+        )
 
         if not participante or not jogo:
             continue
 
+        jogo_aberto = (
+            jogo.get(
+                "situacao",
+                "ABERTO",
+            )
+            == "ABERTO"
+        )
+
+        pode_ver_palpite_aberto = (
+            admin_esta_logado()
+            or (
+                participante_esta_logado()
+                and participante_sessao_id
+                == palpite["participante_id"]
+            )
+        )
+
+        if (
+            jogo_aberto
+            and not pode_ver_palpite_aberto
+        ):
+            continue
+
         palpites_exibicao.append({
             **palpite,
-            "participante_nome": participante["nome"],
+            "participante_nome": participante[
+                "nome"
+            ],
             "jogo_codigo": jogo["codigo"],
             "time_casa": jogo["time_casa"],
-            "time_visitante": jogo["time_visitante"],
-            "rodada": jogo.get("rodada", 0),
+            "time_visitante": jogo[
+                "time_visitante"
+            ],
+            "rodada": jogo.get(
+                "rodada",
+                0,
+            ),
             "situacao_jogo": jogo.get(
                 "situacao",
                 "ABERTO",
+            ),
+            "tipo_jogo": jogo.get(
+                "tipo_jogo",
+                TIPO_JOGO_GRUPO,
+            ),
+            "mata_mata": jogo_e_mata_mata(jogo),
+            "vencedor": palpite.get("vencedor"),
+            "vencedor_nome": montar_vencedor_nome(
+                jogo,
+                palpite.get("vencedor"),
             ),
         })
 
@@ -344,17 +518,29 @@ def montar_contexto_palpites(
 
     participantes = sorted(
         dados["participantes"],
-        key=lambda participante: participante["nome"].lower(),
+        key=lambda participante: participante[
+            "nome"
+        ].lower(),
     )
 
     jogos_ordenados = sorted(
         dados["jogos"],
         key=lambda jogo: (
             0
-            if jogo.get("situacao", "ABERTO") == "ABERTO"
+            if jogo.get(
+                "situacao",
+                "ABERTO",
+            )
+            == "ABERTO"
             else 1,
-            jogo.get("rodada", 0),
-            jogo.get("data_hora", ""),
+            jogo.get(
+                "rodada",
+                0,
+            ),
+            jogo.get(
+                "data_hora",
+                "",
+            ),
             jogo["id"],
         ),
     )
@@ -380,7 +566,9 @@ def montar_contexto_palpites(
         "jogos": jogos_ordenados,
         "jogos_manuais": jogos_manuais,
         "palpites": palpites_exibicao,
-        "resultado_importacao": resultado_importacao,
+        "resultado_importacao": (
+            resultado_importacao
+        ),
         "permitir_fechados": permitir_fechados,
     }
 
@@ -430,6 +618,11 @@ def listar_participantes():
                     participante_original
                 )
             ),
+            "acesso": (
+                obter_acesso_por_participante(
+                    participante_original["id"]
+                )
+            ),
         })
 
     participantes.sort(
@@ -439,6 +632,193 @@ def listar_participantes():
     return render_template(
         "participantes.html",
         participantes=participantes,
+    )
+
+
+@app.route(
+    "/participantes/<int:participante_id>/acesso",
+    methods=["GET", "POST"],
+)
+@admin_required
+def gerenciar_acesso_participante(
+    participante_id: int,
+):
+    dados = carregar_dados()
+
+    participante = next(
+        (
+            item
+            for item in dados["participantes"]
+            if item["id"] == participante_id
+        ),
+        None,
+    )
+
+    if participante is None:
+        flash(
+            "Participante não encontrado.",
+            "danger",
+        )
+
+        return redirect(
+            url_for("listar_participantes")
+        )
+
+    acesso = obter_acesso_por_participante(
+        participante_id
+    )
+
+    if request.method == "POST":
+        usuario = request.form.get(
+            "usuario",
+            "",
+        ).strip()
+
+        senha = request.form.get(
+            "senha",
+            "",
+        )
+
+        confirmacao = request.form.get(
+            "confirmacao_senha",
+            "",
+        )
+
+        ativo = (
+            request.form.get("ativo")
+            == "1"
+        )
+
+        if not re.fullmatch(
+            r"[A-Za-z0-9._-]{3,30}",
+            usuario,
+        ):
+            flash(
+                (
+                    "O usuário deve possuir de 3 a "
+                    "30 caracteres e usar somente "
+                    "letras, números, ponto, hífen "
+                    "ou sublinhado."
+                ),
+                "danger",
+            )
+
+            return render_template(
+                "acesso_participante.html",
+                participante=participante,
+                acesso=acesso,
+            )
+
+        senha_hash = None
+
+        if senha or confirmacao:
+            if len(senha) < 8:
+                flash(
+                    (
+                        "A senha precisa possuir "
+                        "pelo menos 8 caracteres."
+                    ),
+                    "danger",
+                )
+
+                return render_template(
+                    "acesso_participante.html",
+                    participante=participante,
+                    acesso=acesso,
+                )
+
+            if senha != confirmacao:
+                flash(
+                    (
+                        "A senha e a confirmação "
+                        "não são iguais."
+                    ),
+                    "danger",
+                )
+
+                return render_template(
+                    "acesso_participante.html",
+                    participante=participante,
+                    acesso=acesso,
+                )
+
+            senha_hash = generate_password_hash(
+                senha,
+                method="pbkdf2:sha256",
+                salt_length=16,
+            )
+
+        try:
+            salvar_acesso_participante(
+                participante_id=participante_id,
+                usuario=usuario,
+                senha_hash=senha_hash,
+                ativo=ativo,
+            )
+        except (
+            UsuarioDuplicadoError,
+            AcessoInvalidoError,
+        ) as erro:
+            flash(
+                str(erro),
+                "danger",
+            )
+
+            return render_template(
+                "acesso_participante.html",
+                participante=participante,
+                acesso=acesso,
+            )
+
+        flash(
+            (
+                f"Acesso de {participante['nome']} "
+                "atualizado."
+            ),
+            "success",
+        )
+
+        return redirect(
+            url_for(
+                "gerenciar_acesso_participante",
+                participante_id=participante_id,
+            )
+        )
+
+    return render_template(
+        "acesso_participante.html",
+        participante=participante,
+        acesso=acesso,
+    )
+
+
+@app.route(
+    "/participantes/<int:participante_id>/acesso/remover",
+    methods=["POST"],
+)
+@admin_required
+def remover_acesso_usuario(
+    participante_id: int,
+):
+    removido = remover_acesso_participante(
+        participante_id
+    )
+
+    flash(
+        (
+            "Acesso removido."
+            if removido
+            else "Este participante não possuía acesso."
+        ),
+        (
+            "success"
+            if removido
+            else "warning"
+        ),
+    )
+
+    return redirect(
+        url_for("listar_participantes")
     )
 
 
@@ -603,6 +983,9 @@ def excluir_participante(participante_id: int):
     ]
 
     salvar_dados(dados)
+    remover_acesso_participante(
+        participante_id
+    )
 
     flash(
         (
@@ -647,6 +1030,7 @@ def perfil_participante(participante_id: int):
     resultados_corretos = 0
     resultados_errados = 0
     jogos_pontuados = 0
+    pontuacao_maxima = 0
     palpites_pendentes = 0
 
     for palpite in dados["palpites"]:
@@ -667,17 +1051,16 @@ def perfil_participante(participante_id: int):
         pontos = None
 
         if resultado_definido:
-            pontos = calcular_pontos(
-                palpite["gols_casa"],
-                palpite["gols_visitante"],
-                jogo["gols_casa"],
-                jogo["gols_visitante"],
+            pontos = calcular_pontos_do_palpite(
+                palpite,
+                jogo,
             )
 
             total_pontos += pontos
             jogos_pontuados += 1
+            pontuacao_maxima += pontuacao_placar_exato(jogo)
 
-            if pontos == 3:
+            if pontos == pontuacao_placar_exato(jogo):
                 placares_exatos += 1
             elif pontos == 1:
                 resultados_corretos += 1
@@ -685,6 +1068,22 @@ def perfil_participante(participante_id: int):
                 resultados_errados += 1
         else:
             palpites_pendentes += 1
+
+        palpite_visivel = (
+            admin_esta_logado()
+            or (
+                participante_esta_logado()
+                and session.get(
+                    "participante_id"
+                )
+                == participante_id
+            )
+            or jogo.get(
+                "situacao",
+                "ABERTO",
+            )
+            != "ABERTO"
+        )
 
         historico.append({
             "palpite_id": palpite["id"],
@@ -705,6 +1104,22 @@ def perfil_participante(participante_id: int):
             ),
             "data_hora": jogo.get("data_hora", ""),
             "pontos": pontos,
+            "palpite_visivel": palpite_visivel,
+            "tipo_jogo": jogo.get(
+                "tipo_jogo",
+                TIPO_JOGO_GRUPO,
+            ),
+            "mata_mata": jogo_e_mata_mata(jogo),
+            "vencedor": jogo.get("vencedor"),
+            "vencedor_nome": montar_vencedor_nome(
+                jogo,
+                jogo.get("vencedor"),
+            ),
+            "palpite_vencedor": palpite.get("vencedor"),
+            "palpite_vencedor_nome": montar_vencedor_nome(
+                jogo,
+                palpite.get("vencedor"),
+            ),
         })
 
     historico.sort(
@@ -725,8 +1140,6 @@ def perfil_participante(participante_id: int):
         ),
         None,
     )
-
-    pontuacao_maxima = jogos_pontuados * 3
 
     aproveitamento = (
         round(
@@ -771,6 +1184,16 @@ def perfil_participante(participante_id: int):
 @app.route("/jogos")
 def listar_jogos():
     dados = carregar_dados()
+
+    for jogo in dados["jogos"]:
+        jogo.setdefault(
+            "tipo_jogo",
+            TIPO_JOGO_GRUPO,
+        )
+        jogo.setdefault(
+            "vencedor",
+            None,
+        )
 
     jogos_abertos = [
         jogo
@@ -824,6 +1247,7 @@ def adicionar_jogo():
         "data_hora",
         "",
     ).strip()
+    tipo_jogo = tipo_jogo_form()
 
     if rodada is None or rodada < 1:
         flash(
@@ -861,12 +1285,23 @@ def adicionar_jogo():
         "gols_casa": None,
         "gols_visitante": None,
         "situacao": "ABERTO",
+        "tipo_jogo": tipo_jogo,
+        "vencedor": None,
     })
 
     salvar_dados(dados)
 
+    descricao_tipo = (
+        "Mata-mata"
+        if tipo_jogo == TIPO_JOGO_MATA_MATA
+        else "Jogo normal"
+    )
+
     flash(
-        f"Jogo {time_casa} x {time_visitante} adicionado.",
+        (
+            f"Jogo {time_casa} x {time_visitante} "
+            f"adicionado como {descricao_tipo}."
+        ),
         "success",
     )
 
@@ -909,18 +1344,50 @@ def informar_resultado(jogo_id: int):
         )
         return redirect(url_for("listar_jogos"))
 
+    vencedor = None
+
+    if jogo_e_mata_mata(jogo):
+        vencedor = vencedor_por_placar(
+            gols_casa,
+            gols_visitante,
+        )
+
+        if vencedor is None:
+            vencedor = vencedor_form_valido()
+
+            if vencedor is None:
+                flash(
+                    (
+                        "Em jogo mata-mata empatado, "
+                        "selecione quem avançou."
+                    ),
+                    "danger",
+                )
+                return redirect(url_for("listar_jogos"))
+
     jogo["gols_casa"] = gols_casa
     jogo["gols_visitante"] = gols_visitante
     jogo["situacao"] = "FINALIZADO"
+    jogo["vencedor"] = vencedor
 
     salvar_dados(dados)
 
+    mensagem = (
+        f"Resultado salvo: {jogo['time_casa']} "
+        f"{gols_casa} x {gols_visitante} "
+        f"{jogo['time_visitante']}."
+    )
+
+    vencedor_nome = montar_vencedor_nome(
+        jogo,
+        vencedor,
+    )
+
+    if vencedor_nome:
+        mensagem += f" Classificado: {vencedor_nome}."
+
     flash(
-        (
-            f"Resultado salvo: {jogo['time_casa']} "
-            f"{gols_casa} x {gols_visitante} "
-            f"{jogo['time_visitante']}."
-        ),
+        mensagem,
         "success",
     )
 
@@ -1000,6 +1467,402 @@ def listar_palpites():
     return render_template(
         "palpites.html",
         **contexto,
+    )
+
+
+@app.route("/meus-palpites")
+@usuario_required
+def meus_palpites():
+    participante_id = session[
+        "participante_id"
+    ]
+
+    dados = carregar_dados()
+
+    participante = next(
+        (
+            item
+            for item in dados["participantes"]
+            if item["id"] == participante_id
+            and item.get("ativo", True)
+        ),
+        None,
+    )
+
+    if participante is None:
+        session.clear()
+
+        flash(
+            (
+                "Seu participante não está mais "
+                "disponível. Entre novamente."
+            ),
+            "warning",
+        )
+
+        return redirect(
+            url_for("auth.login_usuario")
+        )
+
+    palpites_por_jogo = {
+        palpite["jogo_id"]: palpite
+        for palpite in dados["palpites"]
+        if palpite["participante_id"]
+        == participante_id
+    }
+
+    jogos_abertos = []
+
+    for jogo in sorted(
+        dados["jogos"],
+        key=lambda item: (
+            item.get("rodada", 0),
+            item.get("data_hora", ""),
+            item["id"],
+        ),
+    ):
+        if (
+            jogo.get(
+                "situacao",
+                "ABERTO",
+            )
+            != "ABERTO"
+        ):
+            continue
+
+        palpite = palpites_por_jogo.get(
+            jogo["id"]
+        )
+
+        jogos_abertos.append({
+            **jogo,
+            "palpite_casa": (
+                palpite.get("gols_casa")
+                if palpite
+                else None
+            ),
+            "palpite_visitante": (
+                palpite.get(
+                    "gols_visitante"
+                )
+                if palpite
+                else None
+            ),
+            "palpite_vencedor": (
+                palpite.get("vencedor")
+                if palpite
+                else None
+            ),
+            "mata_mata": jogo_e_mata_mata(jogo),
+        })
+
+    historico = []
+    jogos_por_id = {
+        jogo["id"]: jogo
+        for jogo in dados["jogos"]
+    }
+
+    for palpite in dados["palpites"]:
+        if (
+            palpite["participante_id"]
+            != participante_id
+        ):
+            continue
+
+        jogo = jogos_por_id.get(
+            palpite["jogo_id"]
+        )
+
+        if (
+            not jogo
+            or jogo.get(
+                "situacao",
+                "ABERTO",
+            )
+            == "ABERTO"
+        ):
+            continue
+
+        pontos = None
+
+        if (
+            jogo.get("gols_casa")
+            is not None
+            and jogo.get(
+                "gols_visitante"
+            )
+            is not None
+            and jogo.get("situacao")
+            != "CANCELADO"
+        ):
+            pontos = calcular_pontos_do_palpite(
+                palpite,
+                jogo,
+            )
+
+        historico.append({
+            "codigo": jogo["codigo"],
+            "rodada": jogo.get(
+                "rodada",
+                0,
+            ),
+            "time_casa": jogo[
+                "time_casa"
+            ],
+            "time_visitante": jogo[
+                "time_visitante"
+            ],
+            "palpite_casa": palpite[
+                "gols_casa"
+            ],
+            "palpite_visitante": palpite[
+                "gols_visitante"
+            ],
+            "resultado_casa": jogo.get(
+                "gols_casa"
+            ),
+            "resultado_visitante": jogo.get(
+                "gols_visitante"
+            ),
+            "situacao": jogo.get(
+                "situacao",
+                "ABERTO",
+            ),
+            "pontos": pontos,
+            "tipo_jogo": jogo.get(
+                "tipo_jogo",
+                TIPO_JOGO_GRUPO,
+            ),
+            "mata_mata": jogo_e_mata_mata(jogo),
+            "vencedor": jogo.get("vencedor"),
+            "vencedor_nome": montar_vencedor_nome(
+                jogo,
+                jogo.get("vencedor"),
+            ),
+            "palpite_vencedor": palpite.get("vencedor"),
+            "palpite_vencedor_nome": montar_vencedor_nome(
+                jogo,
+                palpite.get("vencedor"),
+            ),
+        })
+
+    historico.sort(
+        key=lambda item: (
+            item["rodada"],
+            item["codigo"],
+        ),
+        reverse=True,
+    )
+
+    return render_template(
+        "meus_palpites.html",
+        participante=participante,
+        jogos_abertos=jogos_abertos,
+        historico=historico,
+    )
+
+
+@app.route(
+    "/meus-palpites/salvar",
+    methods=["POST"],
+)
+@usuario_required
+def salvar_meus_palpites():
+    participante_id = session[
+        "participante_id"
+    ]
+
+    def operacao(dados: dict) -> dict:
+        participante = next(
+            (
+                item
+                for item in dados[
+                    "participantes"
+                ]
+                if item["id"]
+                == participante_id
+                and item.get(
+                    "ativo",
+                    True,
+                )
+            ),
+            None,
+        )
+
+        if participante is None:
+            return {
+                "erro_conta": True,
+                "criados": 0,
+                "atualizados": 0,
+                "erros": [],
+            }
+
+        palpites_por_jogo = {
+            palpite["jogo_id"]: palpite
+            for palpite in dados["palpites"]
+            if palpite[
+                "participante_id"
+            ]
+            == participante_id
+        }
+
+        criados = 0
+        atualizados = 0
+        erros = []
+
+        for jogo in dados["jogos"]:
+            if (
+                jogo.get(
+                    "situacao",
+                    "ABERTO",
+                )
+                != "ABERTO"
+            ):
+                continue
+
+            casa_texto = request.form.get(
+                f"gols_casa_{jogo['id']}",
+                "",
+            ).strip()
+
+            visitante_texto = request.form.get(
+                f"gols_visitante_{jogo['id']}",
+                "",
+            ).strip()
+
+            if (
+                not casa_texto
+                and not visitante_texto
+            ):
+                continue
+
+            if (
+                not casa_texto
+                or not visitante_texto
+                or not casa_texto.isdigit()
+                or not visitante_texto.isdigit()
+            ):
+                erros.append(
+                    (
+                        f"{jogo['time_casa']} x "
+                        f"{jogo['time_visitante']}: "
+                        "preencha os dois gols "
+                        "com números inteiros."
+                    )
+                )
+
+                continue
+
+            gols_casa = int(casa_texto)
+            gols_visitante = int(
+                visitante_texto
+            )
+
+            vencedor = vencedor_palpite_form(
+                jogo,
+                gols_casa,
+                gols_visitante,
+            )
+
+            existente = palpites_por_jogo.get(
+                jogo["id"]
+            )
+
+            if existente:
+                existente[
+                    "gols_casa"
+                ] = gols_casa
+
+                existente[
+                    "gols_visitante"
+                ] = gols_visitante
+                existente["vencedor"] = vencedor
+
+                atualizados += 1
+            else:
+                novo = {
+                    "id": gerar_proximo_id(
+                        dados["palpites"]
+                    ),
+                    "participante_id": (
+                        participante_id
+                    ),
+                    "jogo_id": jogo["id"],
+                    "gols_casa": gols_casa,
+                    "gols_visitante": (
+                        gols_visitante
+                    ),
+                    "vencedor": vencedor,
+                }
+
+                dados["palpites"].append(
+                    novo
+                )
+
+                palpites_por_jogo[
+                    jogo["id"]
+                ] = novo
+
+                criados += 1
+
+        return {
+            "erro_conta": False,
+            "criados": criados,
+            "atualizados": atualizados,
+            "erros": erros,
+        }
+
+    resultado = executar_transacao(
+        operacao
+    )
+
+    if resultado["erro_conta"]:
+        session.clear()
+
+        flash(
+            "Sua conta não está mais disponível.",
+            "danger",
+        )
+
+        return redirect(
+            url_for("auth.login_usuario")
+        )
+
+    if (
+        resultado["criados"] == 0
+        and resultado["atualizados"]
+        == 0
+        and not resultado["erros"]
+    ):
+        flash(
+            (
+                "Nenhum palpite foi preenchido "
+                "ou alterado."
+            ),
+            "warning",
+        )
+    elif (
+        resultado["criados"] > 0
+        or resultado["atualizados"] > 0
+    ):
+        flash(
+            (
+                f"{resultado['criados']} "
+                "palpite(s) criado(s) e "
+                f"{resultado['atualizados']} "
+                "atualizado(s)."
+            ),
+            "success",
+        )
+
+    for erro in resultado["erros"]:
+        flash(
+            erro,
+            "danger",
+        )
+
+    return redirect(
+        url_for("meus_palpites")
     )
 
 
@@ -1121,6 +1984,12 @@ def adicionar_palpite():
         gols_casa = int(gols_casa_texto)
         gols_visitante = int(gols_visitante_texto)
 
+        vencedor = vencedor_palpite_form(
+            jogo,
+            gols_casa,
+            gols_visitante,
+        )
+
         chave = (participante_id, jogo["id"])
         palpite_existente = palpites_por_chave.get(chave)
 
@@ -1129,6 +1998,7 @@ def adicionar_palpite():
             palpite_existente[
                 "gols_visitante"
             ] = gols_visitante
+            palpite_existente["vencedor"] = vencedor
             palpites_atualizados += 1
         else:
             novo_palpite = {
@@ -1137,6 +2007,7 @@ def adicionar_palpite():
                 "jogo_id": jogo["id"],
                 "gols_casa": gols_casa,
                 "gols_visitante": gols_visitante,
+                "vencedor": vencedor,
             }
 
             dados["palpites"].append(novo_palpite)

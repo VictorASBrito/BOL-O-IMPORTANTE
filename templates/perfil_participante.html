@@ -159,17 +159,36 @@
                                     {{ item.codigo }}
                                 </span>
 
+                                {% if item.mata_mata %}
+                                    <span class="match-type-badge knockout">
+                                        Mata-mata
+                                    </span>
+                                {% endif %}
+
                                 <strong>{{ item.time_casa }}</strong>
                                 x
                                 <strong>{{ item.time_visitante }}</strong>
                             </td>
 
                             <td>
-                                <span class="prediction-score">
-                                    {{ item.palpite_casa }}
-                                    x
-                                    {{ item.palpite_visitante }}
-                                </span>
+                                {% if item.palpite_visivel %}
+                                    <span class="prediction-score">
+                                        {{ item.palpite_casa }}
+                                        x
+                                        {{ item.palpite_visitante }}
+                                    </span>
+
+                                    {% if item.mata_mata and item.palpite_vencedor_nome %}
+                                        <div class="classified-team-line small">
+                                            Classifica:
+                                            <strong>{{ item.palpite_vencedor_nome }}</strong>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="hidden-prediction-badge">
+                                        🔒 Oculto até o fechamento
+                                    </span>
+                                {% endif %}
                             </td>
 
                             <td>
@@ -177,6 +196,13 @@
                                     {{ item.resultado_casa }}
                                     x
                                     {{ item.resultado_visitante }}
+
+                                    {% if item.mata_mata and item.vencedor_nome %}
+                                        <div class="classified-team-line small">
+                                            Classificado:
+                                            <strong>{{ item.vencedor_nome }}</strong>
+                                        </div>
+                                    {% endif %}
                                 {% else %}
                                     -
                                 {% endif %}
@@ -200,6 +226,10 @@
                                 {% if item.pontos is none %}
                                     <span class="text-secondary">
                                         Pendente
+                                    </span>
+                                {% elif item.pontos == 5 %}
+                                    <span class="points-badge points-exact">
+                                        5 pontos
                                     </span>
                                 {% elif item.pontos == 3 %}
                                     <span class="points-badge points-exact">

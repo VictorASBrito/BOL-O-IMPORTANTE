@@ -1,10 +1,30 @@
 {% extends "base.html" %}
 
+{% macro tipo_jogo_badge(jogo) %}
+    {% if jogo.tipo_jogo == "MATA_MATA" %}
+        <span class="match-type-badge knockout">
+            Mata-mata
+        </span>
+    {% else %}
+        <span class="match-type-badge league">
+            Jogo normal
+        </span>
+    {% endif %}
+{% endmacro %}
+
+{% macro vencedor_nome(jogo) %}
+    {% if jogo.vencedor == "CASA" %}
+        {{ jogo.time_casa }}
+    {% elif jogo.vencedor == "VISITANTE" %}
+        {{ jogo.time_visitante }}
+    {% endif %}
+{% endmacro %}
+
 {% macro card_jogo(jogo) %}
     <article
-        class="match-card"
+        class="match-card {% if jogo.tipo_jogo == 'MATA_MATA' %}knockout-match-card{% endif %}"
         data-filter-item="jogos"
-        data-search-text="{{ jogo.codigo }} partida {{ jogo.codigo }} rodada {{ jogo.rodada }} {{ jogo.time_casa }} {{ jogo.time_visitante }} {{ jogo.situacao }}"
+        data-search-text="{{ jogo.codigo }} partida {{ jogo.codigo }} rodada {{ jogo.rodada }} {{ jogo.time_casa }} {{ jogo.time_visitante }} {{ jogo.situacao }} {{ jogo.tipo_jogo }} mata mata"
     >
         <div class="match-card-top">
             <div class="match-card-label">
@@ -20,6 +40,8 @@
                     <span class="manual-round">
                         Rodada {{ jogo.rodada }}
                     </span>
+
+                    {{ tipo_jogo_badge(jogo) }}
                 </div>
             </div>
 
@@ -84,6 +106,38 @@
                     </div>
                 </div>
 
+                {% if jogo.tipo_jogo == "MATA_MATA" %}
+                    <div class="knockout-winner-box">
+                        <span class="knockout-winner-title">
+                            Classificado em caso de empate
+                        </span>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="vencedor"
+                                value="CASA"
+                                {% if jogo.vencedor == "CASA" %}
+                                    checked
+                                {% endif %}
+                            >
+                            {{ jogo.time_casa }}
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="vencedor"
+                                value="VISITANTE"
+                                {% if jogo.vencedor == "VISITANTE" %}
+                                    checked
+                                {% endif %}
+                            >
+                            {{ jogo.time_visitante }}
+                        </label>
+                    </div>
+                {% endif %}
+
                 <div class="match-card-bottom">
                     <span class="match-card-date">
                         {{ jogo.data_hora or "Data não informada" }}
@@ -135,6 +189,15 @@
                     {{ jogo.time_visitante }}
                 </span>
             </div>
+
+            {% if jogo.tipo_jogo == "MATA_MATA" and jogo.vencedor %}
+                <div class="classified-team-line">
+                    Classificado:
+                    <strong>
+                        {{ vencedor_nome(jogo) }}
+                    </strong>
+                </div>
+            {% endif %}
 
             <div class="match-card-bottom">
                 <span class="match-card-date">
@@ -202,7 +265,8 @@
                         <h2>Adicionar jogo</h2>
 
                         <p>
-                            O código será gerado automaticamente.
+                            Marque como mata-mata quando o jogo
+                            exigir classificado e pontuação especial.
                         </p>
                     </div>
                 </div>
@@ -233,7 +297,7 @@
                             >
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label">
                                 Time da casa
                             </label>
@@ -246,7 +310,7 @@
                             >
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label">
                                 Time visitante
                             </label>
@@ -269,6 +333,25 @@
                                 name="data_hora"
                                 class="form-control"
                             >
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">
+                                Tipo
+                            </label>
+
+                            <select
+                                name="tipo_jogo"
+                                class="form-select"
+                            >
+                                <option value="GRUPO">
+                                    Jogo normal
+                                </option>
+
+                                <option value="MATA_MATA">
+                                    Mata-mata
+                                </option>
+                            </select>
                         </div>
 
                         <div class="col-md-1 d-flex align-items-end">
@@ -299,7 +382,7 @@
 
                     <p>
                         Pesquise pelo código, rodada,
-                        seleção ou situação.
+                        seleção, situação ou tipo.
                     </p>
                 </div>
             </div>
@@ -309,7 +392,7 @@
                     <input
                         type="search"
                         class="form-control"
-                        placeholder="Ex.: J25, Brasil, rodada 1"
+                        placeholder="Ex.: J25, Brasil, mata-mata"
                         data-filter-input="jogos"
                     >
                 </div>

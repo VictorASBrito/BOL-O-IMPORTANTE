@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Meus palpites - {{ nome_site }}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header participant-area-header">
+        <div>
+            <span class="page-eyebrow">
+                Área de {{ participante.nome }}
+            </span>
+
+            <h1>Meus palpites</h1>
+
+            <p>
+                Preencha ou atualize seus placares enquanto
+                os jogos estiverem abertos.
+            </p>
+        </div>
+
+        <div class="header-trophy">
+            🎯
+        </div>
+    </div>
+
+    <div class="participant-security-note">
+        Em jogos mata-mata, o placar exato vale 5 pontos.
+        Se apostar empate, escolha também quem se classifica.
+    </div>
+
+    <div class="card copa-card mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">01</span>
+                </div>
+
+                <div>
+                    <h2>Jogos abertos</h2>
+
+                    <p>
+                        Campos vazios são ignorados. Um placar
+                        já preenchido será atualizado.
+                    </p>
+                </div>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for('salvar_meus_palpites') }}"
+            >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <div class="my-predictions-grid">
+                    {% for jogo in jogos_abertos %}
+                        <article class="my-prediction-card {% if jogo.mata_mata %}knockout-prediction-card{% endif %}">
+                            <div class="my-prediction-top">
+                                <div>
+                                    <span class="game-code">
+                                        {{ jogo.codigo }}
+                                    </span>
+
+                                    <span class="manual-round">
+                                        Rodada {{ jogo.rodada }}
+                                    </span>
+
+                                    {% if jogo.mata_mata %}
+                                        <span class="match-type-badge knockout">
+                                            Mata-mata
+                                        </span>
+                                    {% else %}
+                                        <span class="match-type-badge league">
+                                            Normal
+                                        </span>
+                                    {% endif %}
+                                </div>
+
+                                <span class="status-badge status-aberto">
+                                    Aberto
+                                </span>
+                            </div>
+
+                            <div class="my-prediction-scoreline">
+                                <span class="my-prediction-team home">
+                                    {{ jogo.time_casa }}
+                                </span>
+
+                                <input
+                                    type="number"
+                                    name="gols_casa_{{ jogo.id }}"
+                                    class="form-control my-prediction-input"
+                                    min="0"
+                                    value="{% if jogo.palpite_casa is not none %}{{ jogo.palpite_casa }}{% endif %}"
+                                    aria-label="Gols de {{ jogo.time_casa }}"
+                                >
+
+                                <span class="my-prediction-x">
+                                    x
+                                </span>
+
+                                <input
+                                    type="number"
+                                    name="gols_visitante_{{ jogo.id }}"
+                                    class="form-control my-prediction-input"
+                                    min="0"
+                                    value="{% if jogo.palpite_visitante is not none %}{{ jogo.palpite_visitante }}{% endif %}"
+                                    aria-label="Gols de {{ jogo.time_visitante }}"
+                                >
+
+                                <span class="my-prediction-team away">
+                                    {{ jogo.time_visitante }}
+                                </span>
+                            </div>
+
+                            {% if jogo.mata_mata %}
+                                <div class="prediction-winner-box">
+                                    <span>
+                                        Se empatar, classifica:
+                                    </span>
+
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="vencedor_{{ jogo.id }}"
+                                            value="CASA"
+                                            {% if jogo.palpite_vencedor == "CASA" %}
+                                                checked
+                                            {% endif %}
+                                        >
+                                        {{ jogo.time_casa }}
+                                    </label>
+
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="vencedor_{{ jogo.id }}"
+                                            value="VISITANTE"
+                                            {% if jogo.palpite_vencedor == "VISITANTE" %}
+                                                checked
+                                            {% endif %}
+                                        >
+                                        {{ jogo.time_visitante }}
+                                    </label>
+                                </div>
+                            {% endif %}
+
+                            <div class="my-prediction-date">
+                                {{ jogo.data_hora or "Data não informada" }}
+                            </div>
+                        </article>
+                    {% else %}
+                        <div class="empty-state">
+                            Não há jogos abertos no momento.
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% if jogos_abertos %}
+                    <div class="d-flex justify-content-end mt-4">
+                        <button
+                            type="submit"
+                            class="btn btn-copa"
+                        >
+                            Salvar meus palpites
+                        </button>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="card copa-card">
+        <div class="card-body">
+            <div class="section-title">
+                <div>
+                    <span class="section-number">02</span>
+                </div>
+
+                <div>
+                    <h2>Meu histórico</h2>
+
+                    <p>
+                        Palpites de jogos encerrados e
+                        a pontuação conquistada.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table copa-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Jogo</th>
+                        <th>Meu palpite</th>
+                        <th>Resultado</th>
+                        <th>Pontos</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in historico %}
+                        <tr>
+                            <td>
+                                <span class="game-code">
+                                    {{ item.codigo }}
+                                </span>
+
+                                {% if item.mata_mata %}
+                                    <span class="match-type-badge knockout">
+                                        Mata-mata
+                                    </span>
+                                {% endif %}
+
+                                {{ item.time_casa }}
+                                x
+                                {{ item.time_visitante }}
+                            </td>
+
+                            <td>
+                                <span class="prediction-score">
+                                    {{ item.palpite_casa }}
+                                    x
+                                    {{ item.palpite_visitante }}
+                                </span>
+
+                                {% if item.mata_mata and item.palpite_vencedor_nome %}
+                                    <div class="classified-team-line small">
+                                        Classifica:
+                                        <strong>{{ item.palpite_vencedor_nome }}</strong>
+                                    </div>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if item.resultado_casa is not none %}
+                                    {{ item.resultado_casa }}
+                                    x
+                                    {{ item.resultado_visitante }}
+
+                                    {% if item.mata_mata and item.vencedor_nome %}
+                                        <div class="classified-team-line small">
+                                            Classificado:
+                                            <strong>{{ item.vencedor_nome }}</strong>
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if item.pontos == 5 %}
+                                    <span class="points-badge points-exact">
+                                        5 pontos
+                                    </span>
+                                {% elif item.pontos == 3 %}
+                                    <span class="points-badge points-exact">
+                                        3 pontos
+                                    </span>
+                                {% elif item.pontos == 1 %}
+                                    <span class="points-badge points-result">
+                                        1 ponto
+                                    </span>
+                                {% elif item.pontos == 0 %}
+                                    <span class="points-badge points-zero">
+                                        0 pontos
+                                    </span>
+                                {% else %}
+                                    <span class="text-secondary">
+                                        Sem pontuação
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td
+                                colspan="4"
+                                class="empty-state"
+                            >
+                                Nenhum jogo encerrado no histórico.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

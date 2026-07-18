@@ -1,0 +1,92 @@
+ATUALIZAÇÃO: FASE MATA-MATA
+===========================
+
+O QUE FOI ADICIONADO
+--------------------
+1. Ao cadastrar um jogo, agora existe o campo "Tipo":
+   - Jogo normal
+   - Mata-mata
+
+2. Jogos mata-mata possuem regra de pontuação própria:
+   - Placar exato: 5 pontos
+   - Acertar somente o classificado/resultado: 1 ponto
+   - Erro: 0 pontos
+
+3. Jogos normais continuam com a regra anterior:
+   - Placar exato: 3 pontos
+   - Acertar somente o resultado: 1 ponto
+   - Erro: 0 pontos
+
+4. Ao finalizar um jogo mata-mata empatado, o administrador deve selecionar quem se classificou.
+
+5. Em palpites de mata-mata, quando o participante apostar empate, ele também pode informar quem acredita que vai se classificar.
+
+ARQUIVOS A SUBSTITUIR
+---------------------
+- app.py
+- services/pontuacao_service.py
+- templates/jogos.html
+- templates/meus_palpites.html
+- templates/palpites.html
+- templates/perfil_participante.html
+- static/css/style.css
+
+ANTES DE SUBSTITUIR
+-------------------
+Faça backup:
+
+    Copy-Item "data\bolao.json" "data\bolao_backup_mata_mata.json"
+
+INSTALAÇÃO
+----------
+1. Extraia o ZIP na raiz do projeto.
+2. Aceite substituir os arquivos.
+3. Reinicie o servidor:
+
+    .\.venv\Scripts\python.exe server.py
+
+4. Atualize o navegador com Ctrl + F5.
+
+OBSERVAÇÃO SOBRE JOGOS ANTIGOS
+------------------------------
+Jogos já cadastrados sem o novo campo serão tratados automaticamente como "Jogo normal".
+
+COMO TESTAR
+-----------
+1. Entre como administrador.
+2. Acesse Jogos.
+3. Cadastre um jogo com Tipo = Mata-mata.
+4. Entre como participante e faça um palpite.
+5. Se o palpite for empate, selecione também quem se classifica.
+6. Volte como admin e finalize o jogo.
+7. Se o resultado final for empate, selecione quem avançou.
+8. Abra Ranking ou Perfil do participante e confira a pontuação.
+
+EXEMPLOS
+--------
+Mata-mata oficial: Brasil 1 x 1 Argentina, classificado Brasil.
+
+Palpite: Brasil 1 x 1 Argentina -> 5 pontos, mesmo se o usuário tiver acertado o placar.
+Palpite: Brasil 2 x 2 Argentina, classificado Brasil -> 1 ponto.
+Palpite: Brasil 1 x 2 Argentina -> 0 pontos.
+
+IMPORTAÇÃO DE EMPATES NO MATA-MATA
+-----------------------------------
+Para importar um palpite empatado em jogo mata-mata, informe quem passa na linha seguinte.
+
+Exemplo:
+
+    Teste
+    Canadá 1 a 1 África do Sul
+    Canadá passa
+
+O importador também aceita termos como:
+- Canadá passa
+- Canadá passou
+- Canadá classifica
+- Canadá classificou
+- Canadá avança
+- Canadá avançou
+
+Se o placar do palpite mata-mata não for empate, o classificado é identificado automaticamente pelo placar.
+

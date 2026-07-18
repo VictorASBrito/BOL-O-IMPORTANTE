@@ -1,0 +1,94 @@
+{
+  "acessos": [
+    {
+      "participante_id": 7,
+      "usuario": "Victor",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$zHwXOlo1hyvtFplu$d323b78194cd58a2c9e530d27c3d0107f0e1ecf66099c86a69f3742994721c54"
+    },
+    {
+      "participante_id": 10,
+      "usuario": "Benante",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$9S5rcUr9DSrsfUeW$3df6297d25944159d4f52340d457184b08eb18a199d20ed6181a54645491a771"
+    },
+    {
+      "participante_id": 9,
+      "usuario": "Cadu",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$TPYh3qmeh5EtNgp1$9aedabfc01f8d923a94f0d0fd9e2498a4f49b32188e1c2a9556710e47fa5757a"
+    },
+    {
+      "participante_id": 4,
+      "usuario": "Tijolinho",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$SNsr2Z5obaM1kw26$ae1ddcaea076a497c5b24dab4a6d83263a16c9ef4b4f5d946466c8af46a237ee"
+    },
+    {
+      "participante_id": 3,
+      "usuario": "Dud",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$PgNkQF4XK5KeZooW$abbe89e5a11e1f40d5fb22dd37cf74168ec80a14e1b67f5f86395a43b5f4a675"
+    },
+    {
+      "participante_id": 5,
+      "usuario": "Dudu",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$qCGv6vSSUuksbRe8$ee4c01cc973279ad11438fe2681a73315c2a743e2e99f0e1643acfddd4f12ac1"
+    },
+    {
+      "participante_id": 1,
+      "usuario": "Gabriel",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$Cd86LruTLEpJgzAX$09ed910c92373a734564dea5d047c73e338963de363d9cd7ccbabfc4e532a0c3"
+    },
+    {
+      "participante_id": 6,
+      "usuario": "Jare",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$whipZAegiqO8yszV$54eb13635e3e6ad1dce7520df2ed67ccbe16a229440c0e0e04e8d0120df3b52c"
+    },
+    {
+      "participante_id": 2,
+      "usuario": "Braz",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$gxJQShiHtmVGIY6S$931679d6bc7df80c2d111176673f38f836dc686cc21eee2a4d0ad57b395b1f29"
+    },
+    {
+      "participante_id": 8,
+      "usuario": "Machado",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$0h1i88abrdOA1M1V$4e0cfd5037efc95c2dc20b25333f4a18c9be75a535925c0d33a2e56c210c5a70"
+    },
+    {
+      "participante_id": 17,
+      "usuario": "Murilo",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$BNbRZdX8uFJwpELQ$3a3ea066102351d3610e473d4c3b1e28ec9a0895b447a746cdbd032dfbf96d4d"
+    },
+    {
+      "participante_id": 16,
+      "usuario": "Paulo",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$NJyCwkjSH7cxBMBi$ce529276c432257aa8c6cc4fd4622d3d811963980f6c705a58d16538973960e7"
+    },
+    {
+      "participante_id": 15,
+      "usuario": "Vladimir",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$k4YBXqMOQgztq8hr$70faa9558dcf1eff6febe5186eeef144c0c066d6a381bc011c5f2706d529bbbd"
+    },
+    {
+      "participante_id": 11,
+      "usuario": "Tuts",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$RygRFaEXePbYOEMS$628998f6cb68a9971588954909c37aa8dfd724e986e04a26a2138847e32b8b8f"
+    },
+    {
+      "participante_id": 12,
+      "usuario": "Vinicius",
+      "ativo": true,
+      "senha_hash": "pbkdf2:sha256:1000000$cYuKoXxbvU6h99ey$a4117eb61fff873a6856f4cb392c3b7b3c96b6b74de9153dca7e9a1298cbf511"
+    }
+  ]
+}

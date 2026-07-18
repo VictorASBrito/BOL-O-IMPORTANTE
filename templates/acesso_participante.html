@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Acesso de {{ participante.nome }} - {{ nome_site }}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <div>
+            <span class="page-eyebrow">
+                Conta do participante
+            </span>
+
+            <h1>{{ participante.nome }}</h1>
+
+            <p>
+                Crie ou redefina o usuário e a senha
+                usados para cadastrar os próprios palpites.
+            </p>
+        </div>
+
+        <div class="header-trophy">
+            🔑
+        </div>
+    </div>
+
+    <div class="card copa-card access-management-card">
+        <div class="card-body">
+            <div class="access-status-row">
+                <div>
+                    <span class="page-eyebrow">
+                        Situação atual
+                    </span>
+
+                    <h2>
+                        {% if acesso and acesso.ativo %}
+                            Acesso ativo
+                        {% elif acesso %}
+                            Acesso desativado
+                        {% else %}
+                            Sem acesso cadastrado
+                        {% endif %}
+                    </h2>
+                </div>
+
+                <span class="status-badge
+                    {% if acesso and acesso.ativo %}
+                        status-aberto
+                    {% else %}
+                        status-cancelado
+                    {% endif %}
+                ">
+                    {% if acesso and acesso.ativo %}
+                        Ativo
+                    {% else %}
+                        Inativo
+                    {% endif %}
+                </span>
+            </div>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'gerenciar_acesso_participante',
+                    participante_id=participante.id
+                ) }}"
+            >
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <div class="row g-3 mt-1">
+                    <div class="col-md-6">
+                        <label
+                            for="usuario"
+                            class="form-label"
+                        >
+                            Nome de usuário
+                        </label>
+
+                        <input
+                            type="text"
+                            id="usuario"
+                            name="usuario"
+                            class="form-control"
+                            value="{{ acesso.usuario if acesso else '' }}"
+                            minlength="3"
+                            maxlength="30"
+                            required
+                        >
+
+                        <small class="form-text">
+                            Letras, números, ponto, hífen
+                            e sublinhado.
+                        </small>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Permissão
+                        </label>
+
+                        <div class="access-toggle-box">
+                            <input
+                                type="checkbox"
+                                id="ativo"
+                                name="ativo"
+                                value="1"
+                                class="form-check-input"
+                                {% if not acesso or acesso.ativo %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <label for="ativo">
+                                Permitir que este participante
+                                faça login
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label
+                            for="senha"
+                            class="form-label"
+                        >
+                            {% if acesso %}
+                                Nova senha
+                            {% else %}
+                                Senha inicial
+                            {% endif %}
+                        </label>
+
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            class="form-control"
+                            minlength="8"
+                            autocomplete="new-password"
+                            {% if not acesso %}
+                                required
+                            {% endif %}
+                        >
+
+                        {% if acesso %}
+                            <small class="form-text">
+                                Deixe vazio para manter a senha atual.
+                            </small>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label
+                            for="confirmacaoSenha"
+                            class="form-label"
+                        >
+                            Confirmar senha
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmacaoSenha"
+                            name="confirmacao_senha"
+                            class="form-control"
+                            minlength="8"
+                            autocomplete="new-password"
+                            {% if not acesso %}
+                                required
+                            {% endif %}
+                        >
+                    </div>
+                </div>
+
+                <div class="management-actions mt-4">
+                    <button
+                        type="submit"
+                        class="btn btn-copa"
+                    >
+                        Salvar acesso
+                    </button>
+
+                    <a
+                        href="{{ url_for('listar_participantes') }}"
+                        class="btn btn-outline-copa"
+                    >
+                        Voltar
+                    </a>
+                </div>
+            </form>
+
+            {% if acesso %}
+                <hr class="access-divider">
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'remover_acesso_usuario',
+                        participante_id=participante.id
+                    ) }}"
+                    data-confirm-message="Remover completamente o acesso de {{ participante.nome }}?"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger-soft"
+                    >
+                        Remover acesso
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

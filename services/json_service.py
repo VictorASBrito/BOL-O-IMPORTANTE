@@ -1,104 +1,159 @@
 import json
 import os
 import tempfile
-import threading
-from copy import deepcopy
-from typing import Any
+from pathlib import Path
+from threading import RLock
+from typing import Any, Callable, TypeVar
 
 
-CAMINHO_ARQUIVO = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)),
-    "data",
-    "bolao.json"
-)
+PASTA_RAIZ = Path(__file__).resolve().parent.parent
+CAMINHO_ARQUIVO = PASTA_RAIZ / "data" / "bolao.json"
 
-_lock = threading.RLock()
-
-ESTRUTURA_INICIAL = {
-    "participantes": [],
-    "jogos": [],
-    "palpites": []
-}
+_lock_dados = RLock()
+T = TypeVar("T")
 
 
-def inicializar_arquivo() -> None:
-    diretorio = os.path.dirname(CAMINHO_ARQUIVO)
+def _estrutura_padrao() -> dict[str, list[dict[str, Any]]]:
+    return {
+        "participantes": [],
+        "jogos": [],
+        "palpites": [],
+    }
 
-    os.makedirs(diretorio, exist_ok=True)
 
-    if not os.path.exists(CAMINHO_ARQUIVO):
-        salvar_dados(deepcopy(ESTRUTURA_INICIAL))
+def _normalizar_estrutura(
+    dados: Any,
+) -> dict[str, list[dict[str, Any]]]:
+    if not isinstance(dados, dict):
+        dados = {}
+
+    estrutura = _estrutura_padrao()
+
+    for chave in estrutura:
+        valor = dados.get(chave, [])
+
+        estrutura[chave] = (
+            valor
+            if isinstance(valor, list)
+            else []
+        )
+
+    return estrutura
 
 
-def carregar_dados() -> dict[str, Any]:
-    inicializar_arquivo()
+def _ler_sem_lock() -> dict[str, list[dict[str, Any]]]:
+    CAMINHO_ARQUIVO.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
-    with _lock:
-        try:
-            with open(
-                CAMINHO_ARQUIVO,
-                "r",
-                encoding="utf-8"
-            ) as arquivo:
-                dados = json.load(arquivo)
-
-        except json.JSONDecodeError as erro:
-            raise ValueError(
-                "O arquivo bolao.json possui um JSON inválido."
-            ) from erro
-
-        dados.setdefault("participantes", [])
-        dados.setdefault("jogos", [])
-        dados.setdefault("palpites", [])
-
+    if not CAMINHO_ARQUIVO.exists():
+        dados = _estrutura_padrao()
+        _salvar_sem_lock(dados)
         return dados
 
+    try:
+        with CAMINHO_ARQUIVO.open(
+            "r",
+            encoding="utf-8",
+        ) as arquivo:
+            return _normalizar_estrutura(
+                json.load(arquivo)
+            )
+    except json.JSONDecodeError as erro:
+        raise RuntimeError(
+            (
+                "O arquivo data/bolao.json está "
+                "corrompido ou possui JSON inválido."
+            )
+        ) from erro
 
-def salvar_dados(dados: dict[str, Any]) -> None:
-    diretorio = os.path.dirname(CAMINHO_ARQUIVO)
 
-    os.makedirs(diretorio, exist_ok=True)
+def _salvar_sem_lock(
+    dados: dict[str, list[dict[str, Any]]],
+) -> None:
+    CAMINHO_ARQUIVO.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
-    with _lock:
-        caminho_temporario = None
+    dados = _normalizar_estrutura(dados)
 
-        try:
-            with tempfile.NamedTemporaryFile(
-                mode="w",
-                encoding="utf-8",
-                dir=diretorio,
-                delete=False,
-                suffix=".json"
-            ) as arquivo_temporario:
-                caminho_temporario = arquivo_temporario.name
+    descritor, caminho_temporario = (
+        tempfile.mkstemp(
+            prefix="bolao_",
+            suffix=".tmp",
+            dir=str(CAMINHO_ARQUIVO.parent),
+        )
+    )
 
-                json.dump(
-                    dados,
-                    arquivo_temporario,
-                    ensure_ascii=False,
-                    indent=4
-                )
-
-            os.replace(
-                caminho_temporario,
-                CAMINHO_ARQUIVO
+    try:
+        with os.fdopen(
+            descritor,
+            "w",
+            encoding="utf-8",
+        ) as arquivo:
+            json.dump(
+                dados,
+                arquivo,
+                ensure_ascii=False,
+                indent=2,
             )
 
-        except OSError:
-            if (
-                caminho_temporario
-                and os.path.exists(caminho_temporario)
-            ):
-                os.remove(caminho_temporario)
+            arquivo.flush()
+            os.fsync(
+                arquivo.fileno()
+            )
 
-            raise
+        os.replace(
+            caminho_temporario,
+            CAMINHO_ARQUIVO,
+        )
+    finally:
+        if os.path.exists(caminho_temporario):
+            os.remove(caminho_temporario)
 
 
-def gerar_proximo_id(registros: list[dict]) -> int:
-    if not registros:
+def carregar_dados() -> dict[str, list[dict[str, Any]]]:
+    with _lock_dados:
+        return _ler_sem_lock()
+
+
+def salvar_dados(
+    dados: dict[str, list[dict[str, Any]]],
+) -> None:
+    with _lock_dados:
+        _salvar_sem_lock(dados)
+
+
+def executar_transacao(
+    operacao: Callable[
+        [dict[str, list[dict[str, Any]]]],
+        T,
+    ],
+) -> T:
+    """
+    Executa leitura, alteração e gravação sob o
+    mesmo bloqueio.
+
+    Isso evita que dois jogadores salvem ao mesmo
+    tempo e um sobrescreva o palpite do outro.
+    """
+
+    with _lock_dados:
+        dados = _ler_sem_lock()
+        resultado = operacao(dados)
+        _salvar_sem_lock(dados)
+        return resultado
+
+
+def gerar_proximo_id(
+    itens: list[dict[str, Any]],
+) -> int:
+    if not itens:
         return 1
 
     return max(
-        registro.get("id", 0)
-        for registro in registros
+        int(item.get("id", 0))
+        for item in itens
     ) + 1

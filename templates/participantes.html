@@ -14,8 +14,8 @@
             <h1>Participantes</h1>
 
             <p>
-                Consulte os participantes e acesse
-                os detalhes de cada perfil.
+                Consulte os participantes, edite apelidos
+                e gerencie os acessos individuais.
             </p>
         </div>
 
@@ -29,21 +29,26 @@
             <div class="card-body">
                 <div class="section-title">
                     <div>
-                        <span class="section-number">01</span>
+                        <span class="section-number">
+                            01
+                        </span>
                     </div>
 
                     <div>
                         <h2>Adicionar participante</h2>
 
                         <p>
-                            Separe os apelidos utilizando vírgulas.
+                            Separe os apelidos utilizando
+                            vírgulas.
                         </p>
                     </div>
                 </div>
 
                 <form
                     method="POST"
-                    action="{{ url_for('adicionar_participante') }}"
+                    action="{{ url_for(
+                        'adicionar_participante'
+                    ) }}"
                 >
                     <input
                         type="hidden"
@@ -92,12 +97,16 @@
         </div>
     {% endif %}
 
-    <div class="card copa-card">
+    <div class="card copa-card participants-card">
         <div class="card-body">
             <div class="section-title">
                 <div>
                     <span class="section-number">
-                        {% if admin_logado %}02{% else %}01{% endif %}
+                        {% if admin_logado %}
+                            02
+                        {% else %}
+                            01
+                        {% endif %}
                     </span>
                 </div>
 
@@ -105,8 +114,8 @@
                     <h2>Participantes cadastrados</h2>
 
                     <p>
-                        Pesquise pelo nome principal ou
-                        por qualquer apelido.
+                        Pesquise pelo nome principal,
+                        apelido ou usuário de acesso.
                     </p>
                 </div>
             </div>
@@ -116,15 +125,32 @@
                     <input
                         type="search"
                         class="form-control"
-                        placeholder="Pesquisar participante ou apelido"
+                        placeholder="Pesquisar participante, apelido ou usuário"
                         data-filter-input="participantes"
                     >
                 </div>
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table copa-table mb-0">
+        <div class="table-responsive participants-table-wrapper">
+            <table class="table copa-table participants-table mb-0">
+                {% if admin_logado %}
+                    <colgroup>
+                        <col class="col-participant">
+                        <col class="col-aliases">
+                        <col class="col-status">
+                        <col class="col-access">
+                        <col class="col-edit">
+                        <col class="col-actions">
+                    </colgroup>
+                {% else %}
+                    <colgroup>
+                        <col class="col-public-participant">
+                        <col class="col-public-aliases">
+                        <col class="col-public-status">
+                    </colgroup>
+                {% endif %}
+
                 <thead>
                     <tr>
                         <th>Participante</th>
@@ -132,6 +158,7 @@
                         <th>Situação</th>
 
                         {% if admin_logado %}
+                            <th>Acesso</th>
                             <th>Editar apelidos</th>
                             <th>Ações</th>
                         {% endif %}
@@ -142,27 +169,31 @@
                     {% for participante in participantes %}
                         <tr
                             data-filter-item="participantes"
-                            data-search-text="{{ participante.nome }} {{ participante.apelidos_exibicao | join(' ') }}"
+                            data-search-text="
+                                {{ participante.nome }}
+                                {{ participante.apelidos_exibicao | join(' ') }}
+                                {{ participante.acesso.usuario if participante.acesso else '' }}
+                            "
                         >
-                            <td>
+                            <td class="participant-main-cell">
                                 <a
                                     href="{{ url_for(
                                         'perfil_participante',
                                         participante_id=participante.id
                                     ) }}"
-                                    class="participant-link"
+                                    class="participant-link participant-table-person"
                                 >
                                     <span class="participant-mini-avatar">
                                         {{ participante.nome[0] | upper }}
                                     </span>
 
-                                    <strong>
+                                    <strong title="{{ participante.nome }}">
                                         {{ participante.nome }}
                                     </strong>
                                 </a>
                             </td>
 
-                            <td>
+                            <td class="participant-aliases-cell">
                                 <div class="aliases-list">
                                     {% for apelido in participante.apelidos_exibicao %}
                                         <span class="alias-badge">
@@ -176,7 +207,7 @@
                                 </div>
                             </td>
 
-                            <td>
+                            <td class="participant-status-cell">
                                 {% if participante.get('ativo', true) %}
                                     <span class="status-badge status-aberto">
                                         Ativo
@@ -189,14 +220,72 @@
                             </td>
 
                             {% if admin_logado %}
-                                <td>
+                                <td class="participant-access-cell">
+                                    <div class="participant-access-box">
+                                        <div class="participant-access-summary">
+                                            {% if participante.acesso %}
+                                                <span class="status-badge
+                                                    {% if participante.acesso.ativo %}
+                                                        status-aberto
+                                                    {% else %}
+                                                        status-cancelado
+                                                    {% endif %}
+                                                ">
+                                                    {% if participante.acesso.ativo %}
+                                                        Acesso ativo
+                                                    {% else %}
+                                                        Desativado
+                                                    {% endif %}
+                                                </span>
+
+                                                <span class="access-username-line">
+                                                    <small>Usuário</small>
+
+                                                    <code>
+                                                        {{ participante.acesso.usuario }}
+                                                    </code>
+                                                </span>
+                                            {% else %}
+                                                <span class="status-badge status-cancelado">
+                                                    Sem acesso
+                                                </span>
+
+                                                <span class="access-empty-text">
+                                                    Crie um usuário e uma
+                                                    senha inicial.
+                                                </span>
+                                            {% endif %}
+                                        </div>
+
+                                        <a
+                                            href="{{ url_for(
+                                                'gerenciar_acesso_participante',
+                                                participante_id=participante.id
+                                            ) }}"
+                                            class="btn btn-sm
+                                            {% if participante.acesso %}
+                                                btn-result
+                                            {% else %}
+                                                btn-copa
+                                            {% endif %}"
+                                        >
+                                            {% if participante.acesso %}
+                                                Gerenciar acesso
+                                            {% else %}
+                                                Criar acesso
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="participant-edit-cell">
                                     <form
                                         method="POST"
                                         action="{{ url_for(
                                             'atualizar_apelidos',
                                             participante_id=participante.id
                                         ) }}"
-                                        class="aliases-edit-form"
+                                        class="aliases-edit-form participant-alias-form"
                                     >
                                         <input
                                             type="hidden"
@@ -209,6 +298,7 @@
                                             name="apelidos"
                                             class="form-control"
                                             value="{{ participante.apelidos_exibicao | join(', ') }}"
+                                            aria-label="Apelidos de {{ participante.nome }}"
                                         >
 
                                         <button
@@ -220,8 +310,8 @@
                                     </form>
                                 </td>
 
-                                <td>
-                                    <div class="management-actions">
+                                <td class="participant-actions-cell">
+                                    <div class="management-actions participant-row-actions">
                                         <a
                                             href="{{ url_for(
                                                 'perfil_participante',
@@ -260,7 +350,7 @@
                     {% else %}
                         <tr>
                             <td
-                                colspan="{% if admin_logado %}5{% else %}3{% endif %}"
+                                colspan="{% if admin_logado %}6{% else %}3{% endif %}"
                                 class="empty-state"
                             >
                                 Nenhum participante cadastrado.
